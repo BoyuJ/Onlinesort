@@ -1,0 +1,201 @@
+# Public inference template for the final Onlinesort configuration.
+# Provide your own input recording and trained weights before running.
+
+seed: 42
+device: cuda
+fs: 32000
+window_sec: 1.5
+stride_sec: 0.5
+margin_sec: 0.05
+chunk_sec: 0.1
+
+patch:
+  left: 20
+  right: 44
+  k: 9
+  peak_only: false
+
+model:
+  embed_dim: 128
+  hidden_dim: 128
+  encoder_route: multi_channel_spatial
+  shared_stem_layers: 2
+  gate_stem_layers: 2
+  gate_hidden_dim: 64
+  gate_n_blocks: 1
+  gate_shared_backbone: false
+  gate_use_deep: false
+  gate_spatial_dim: 5
+  gate_init_bias: 0.0
+  encode_gate_thresh: 0.5
+  assignment_gate_thresh: 0.5
+  fixed_gate_threshold: 0.5
+  gate_pos_weight_scale: 1.0
+  gate_threshold_source: saved
+  use_saved_gate_calibration: true
+  footprint_stats_dim: 4
+
+detection:
+  alpha: 4.0
+  refractory_ms: 0.3
+  merge_dt_ms: 0.2
+  merge_enabled: true
+  merge_mode: neighbors
+  merge_radius_ch: 1
+  method: fast_local
+  stats_update_every_windows: 4
+  stats_subsample_step: 8
+  active_halo_ms: 0.25
+  max_simul_firing: 0.5
+  thr_max_amp_norm: 300.0
+  low_spatial_score: 0.1
+  low_amp_norm: 5.0
+  neighbor_source: config
+  duplicate_dt_ms: 0.45
+  duplicate_radius_ch: 1
+  hard_min_spatial_score: 0.0
+  hard_min_support: 1
+  hard_filter_mode: soft
+  saturation_filter_mode: flag
+
+preprocess:
+  bandpass_low: 300
+  bandpass_high: 6000
+  car_mode: global
+  noise_beta: 0.05
+  patch_norm_mode: peak_channel_sigma
+
+clustering:
+  init_sec: 5.0
+  init_min_events: 64
+  init_min_components: 2
+  init_max_components: 8
+  init_max_overclusters: 8
+  candidate_hop: 2
+  candidate_max_units: 16
+  local_vote_k: 8
+  local_vote_weight: 0.15
+  neighbor_entropy_thresh: 1.25
+  confidence_reject_min: 0.0
+  refractory_ms: 2.0
+  accept_thresh: 0.65
+  margin_thresh: 0.05
+  update_conf_min: 0.7
+  update_alpha_mu: 0.03
+  update_alpha_stats: 0.05
+  max_subprototypes: 5
+  w_emb: 1.0
+  w_geo: 0.0
+  w_isi: 2.0
+  w_amp: 0.15
+  w_q: 0.2
+  w_gate: 0.0
+  background_interval_sec: 1.0
+  novelty_window_sec: 10.0
+  novelty_min_events: 12
+  novelty_min_duration_sec: 1.0
+  novelty_max_dispersion: 0.18
+  novelty_birth_gate_min: 1.0e-06
+  keep_gate_min: 1.0e-06
+  init_seed_gate: 1.0e-06
+  death_inactive_sec: 30.0
+  death_contamination_max: 0.25
+  split_min_events: 30
+  split_min_emb_gap: 0.35
+  split_min_channel_gap: 1.0
+  split_probation_checks: 2
+  merge_cosine_min: 0.95
+  merge_hop_max: 1
+  merge_refractory_conflict_max: 0.01
+
+online:
+  assign_mode: multi_prototype
+  init_window_sec:
+    - 20.0
+  max_prototypes_per_unit: 5
+  min_events_per_prototype: 8
+  update_enabled: true
+
+labeling:
+  tol_ms: 2.0
+  min_pred_label: 0
+
+benchmark:
+  backend: kilo
+  gt_time_mode: peak_aligned
+  tol_samples: null
+  tol_ms: 0.5
+  min_sort_label: 0
+  candidate_match_mode: all
+  n_check: 0
+  score_threshold: 0.8
+  window_sec: 60.0
+  diagnostics: true
+
+batch:
+  run_id: onlinesort_infer
+  output_dir: data/cache/onlinesort_infer
+  log_dir: data/logs/onlinesort_infer
+  # Add one entry per recording when using scripts/run_online.py --jobs all.
+  jobs:
+    - name: example_recording
+      input_h5: /path/to/recording.h5
+      out_npz: data/cache/onlinesort_infer/example_recording.npz
+      log_file: data/logs/onlinesort_infer/example_recording.log
+
+offline:
+  # Use either input_h5 or input_bin for single-recording inference.
+  input_h5: null
+  input_bin: null
+  n_channels: 0
+  fs: 32000
+  chunk_sec: 0.1
+  device: cuda
+  weights: null
+  fallback_peak_only_weights: null
+  electrode_config: configs/electrodes/neuronexus32_mearec.yaml
+  out_npz: data/cache/onlinesort_infer/output.npz
+  log_file: data/logs/onlinesort_infer/output.log
+  log_every_chunks: 20
+  save_embeddings: true
+  fast_offline: true
+  clustering:
+    methods:
+      - hdbscan
+    selection_metric: no_gt_high_recall_k
+    fail_on_method_error: false
+    hdbscan_min_cluster_size:
+      - 8
+      - 16
+      - 32
+      - 64
+    hdbscan_min_samples:
+      - 1
+      - 5
+      - 10
+    hdbscan_cluster_selection_epsilon:
+      - 0.0
+    hdbscan_cluster_selection_method: leaf
+    hdbscan_selection_metric: no_gt_high_recall_k
+    hdbscan_high_recall_k_delta: 0.3
+    hdbscan_high_recall_k_min_clustered_fraction: 0.25
+    hdbscan_high_recall_k_max_small_unit_pressure: 1.0
+    hdbscan_high_recall_k_max_noise_ratio: 0.8
+    hdbscan_merge_enabled: true
+    hdbscan_merge_profile: loose
+    hdbscan_online_profile: exp090_threshold_only
+    hdbscan_merge_cosine_min: 0.9
+    hdbscan_merge_channel_gap_max: 2.0
+    hdbscan_merge_cross_conflict_max: 0.02
+    nogt_k_stop_enabled: false
+  postprocess:
+    enabled: false
+    keep_unit_id_raw: true
+    drop_event_count_lt: 10
+    drop_median_confidence_lt: 0.25
+    merge_hop_max: 2
+    merge_cosine_min: 0.92
+    merge_refractory_conflict_max: 0.005
+    orphan_event_count_max: 30
+    orphan_cosine_min: 0.95
+    orphan_refractory_conflict_max: 0.005
