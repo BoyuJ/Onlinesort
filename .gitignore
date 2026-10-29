@@ -20,3 +20,6 @@ __pycache__/
 .ruff_cache/
 .venv/
 venv/
+
+# Imported paper artifacts remain local.
+weights/

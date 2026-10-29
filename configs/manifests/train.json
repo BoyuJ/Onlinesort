@@ -1,0 +1,194 @@
+{
+  "schema_version": 1,
+  "validation_indices": [
+    1,
+    3,
+    14,
+    16,
+    20,
+    31,
+    32
+  ],
+  "records": [
+    {
+      "name": "train_00",
+      "path": "train7/hd32_drift/recording_n10_eta001.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_01",
+      "path": "train7/hd32_drift/recording_n10_eta003.h5",
+      "split": "validation"
+    },
+    {
+      "name": "train_02",
+      "path": "train7/hd32_drift/recording_n10_eta005.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_03",
+      "path": "train7/hd32_drift/recording_n10_eta010.h5",
+      "split": "validation"
+    },
+    {
+      "name": "train_04",
+      "path": "train7/hd32_drift/recording_n10_eta015.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_05",
+      "path": "train7/hd32_drift/recording_n10_eta020.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_06",
+      "path": "train7/hd32_drift/recording_n20_eta001.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_07",
+      "path": "train7/hd32_drift/recording_n20_eta003.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_08",
+      "path": "train7/hd32_drift/recording_n20_eta005.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_09",
+      "path": "train7/hd32_drift/recording_n20_eta010.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_10",
+      "path": "train7/hd32_drift/recording_n20_eta015.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_11",
+      "path": "train7/hd32_drift/recording_n20_eta020.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_12",
+      "path": "train7/hd32_drift/recording_n5_eta001.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_13",
+      "path": "train7/hd32_drift/recording_n5_eta003.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_14",
+      "path": "train7/hd32_drift/recording_n5_eta005.h5",
+      "split": "validation"
+    },
+    {
+      "name": "train_15",
+      "path": "train7/hd32_drift/recording_n5_eta010.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_16",
+      "path": "train7/hd32_drift/recording_n5_eta015.h5",
+      "split": "validation"
+    },
+    {
+      "name": "train_17",
+      "path": "train7/hd32_drift/recording_n5_eta020.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_18",
+      "path": "train7/hd32_static/recording_n10_eta001.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_19",
+      "path": "train7/hd32_static/recording_n10_eta003.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_20",
+      "path": "train7/hd32_static/recording_n10_eta005.h5",
+      "split": "validation"
+    },
+    {
+      "name": "train_21",
+      "path": "train7/hd32_static/recording_n10_eta010.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_22",
+      "path": "train7/hd32_static/recording_n10_eta015.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_23",
+      "path": "train7/hd32_static/recording_n10_eta020.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_24",
+      "path": "train7/hd32_static/recording_n20_eta001.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_25",
+      "path": "train7/hd32_static/recording_n20_eta003.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_26",
+      "path": "train7/hd32_static/recording_n20_eta005.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_27",
+      "path": "train7/hd32_static/recording_n20_eta010.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_28",
+      "path": "train7/hd32_static/recording_n20_eta015.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_29",
+      "path": "train7/hd32_static/recording_n20_eta020.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_30",
+      "path": "train7/hd32_static/recording_n5_eta001.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_31",
+      "path": "train7/hd32_static/recording_n5_eta003.h5",
+      "split": "validation"
+    },
+    {
+      "name": "train_32",
+      "path": "train7/hd32_static/recording_n5_eta005.h5",
+      "split": "validation"
+    },
+    {
+      "name": "train_33",
+      "path": "train7/hd32_static/recording_n5_eta010.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_34",
+      "path": "train7/hd32_static/recording_n5_eta015.h5",
+      "split": "train"
+    },
+    {
+      "name": "train_35",
+      "path": "train7/hd32_static/recording_n5_eta020.h5",
+      "split": "train"
+    }
+  ]
+}

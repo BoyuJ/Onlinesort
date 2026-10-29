@@ -20,6 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from src.reproducibility import load_recording_manifest, resolve_data_records
 from scripts.check_uid_consistency import compare_files, load_file_info
 from src.dataset import (
     IGNORED_SAMPLE_SOURCE,
@@ -608,6 +609,8 @@ def restore_training_checkpoint_payload(
     optimizer: optim.Optimizer,
     device: torch.device,
     scheduler: optim.lr_scheduler.LRScheduler | None = None,
+    restore_optimizer: bool = True,
+    restore_scheduler: bool = True,
 ) -> tuple[int, int, bool]:
     _ = device
 
@@ -617,10 +620,10 @@ def restore_training_checkpoint_payload(
         return torch.as_tensor(state, dtype=torch.uint8, device="cpu").contiguous()
 
     if "model_state_dict" in ckpt:
-        model.load_state_dict(ckpt["model_state_dict"])
+        model.load_state_dict({k: v for k, v in ckpt["model_state_dict"].items() if not k.startswith("gate_net.overlap_head.")})
     else:
         model.load_state_dict(ckpt)
-    if isinstance(ckpt, dict) and "optimizer_state_dict" in ckpt:
+    if restore_optimizer and isinstance(ckpt, dict) and "optimizer_state_dict" in ckpt:
         optimizer.load_state_dict(ckpt["optimizer_state_dict"])
     if isinstance(ckpt, dict) and "numpy_rng_state" in ckpt:
         np.random.set_state(ckpt["numpy_rng_state"])
@@ -629,7 +632,7 @@ def restore_training_checkpoint_payload(
     if isinstance(ckpt, dict) and "torch_cuda_rng_state_all" in ckpt and torch.cuda.is_available():
         torch.cuda.set_rng_state_all(_normalize_rng_state(state) for state in ckpt["torch_cuda_rng_state_all"])
     scheduler_loaded = False
-    if scheduler is not None and isinstance(ckpt, dict) and "scheduler_state_dict" in ckpt:
+    if restore_scheduler and scheduler is not None and isinstance(ckpt, dict) and "scheduler_state_dict" in ckpt:
         scheduler.load_state_dict(ckpt["scheduler_state_dict"])
         scheduler_loaded = True
     epoch = int(ckpt.get("epoch", 0)) if isinstance(ckpt, dict) else 0
@@ -643,7 +646,7 @@ def load_model_state_from_checkpoint_payload(
     model: torch.nn.Module,
 ) -> None:
     if isinstance(ckpt, dict) and "model_state_dict" in ckpt:
-        model.load_state_dict(ckpt["model_state_dict"])
+        model.load_state_dict({k: v for k, v in ckpt["model_state_dict"].items() if not k.startswith("gate_net.overlap_head.")})
     else:
         model.load_state_dict(ckpt)
 
@@ -2829,6 +2832,12 @@ def temporal_connection_loss(
 ) -> Tuple[torch.Tensor, Dict[str, float]]:
     losses_cfg = dict(cfg.get("stage2", {}).get("losses", {}) or {})
     conn_cfg = dict(losses_cfg.get("temporal_connection", {}) or {})
+    mode = str(conn_cfg.get("mode", "adjacent_hinge"))
+    if mode == "global_compact_margin":
+        from src.nn.global_identity_loss import global_identity_connection_loss
+        return global_identity_connection_loss(z, batch, episode, cfg)
+    if mode != "adjacent_hinge":
+        raise ValueError(f"Unknown auxiliary connection mode: {mode}")
     enabled = bool(conn_cfg.get("enabled", False))
     weight = float(conn_cfg.get("weight", conn_cfg.get("lambda", 0.0)))
     stats = {
@@ -3242,22 +3251,96 @@ def _stable_recording_cluster_eval_indices(
     return np.sort(np.concatenate(selected_parts, axis=0).astype(np.int64, copy=False))
 
 
+def compute_knn_purity(z: np.ndarray, labels: np.ndarray, k_list: List[int] | tuple[int, ...] = (5, 10, 20), macro_by_label: bool = True) -> Dict[str, float]:
+    z_arr = _normalized_embedding(z)
+    y = np.asarray(labels, dtype=np.int64)
+    out: Dict[str, float] = {}
+    if z_arr.shape[0] <= 1:
+        return {f"knn_purity{k}": float("nan") for k in k_list}
+    sim = z_arr @ z_arr.T
+    np.fill_diagonal(sim, -np.inf)
+    for k in k_list:
+        k_eff = min(int(k), int(z_arr.shape[0] - 1))
+        if k_eff <= 0:
+            out[f"knn_purity{k}"] = float("nan")
+            continue
+        nbr = np.argsort(-sim, axis=1, kind="mergesort")[:, :k_eff]
+        purity = np.mean((y[nbr] == y[:, None]).astype(np.float32), axis=1)
+        if macro_by_label:
+            vals = [float(np.mean(purity[y == int(c)])) for c in np.unique(y).tolist() if np.any(y == int(c))]
+            out[f"knn_purity{k}"] = float(np.mean(np.asarray(vals, dtype=np.float32))) if vals else float("nan")
+        else:
+            out[f"knn_purity{k}"] = float(np.mean(purity.astype(np.float32)))
+    return out
+
+
+def compute_label_conductance(z: np.ndarray, labels: np.ndarray, k: int = 15, mutual: bool = True, tau: float = 0.1) -> Dict[str, float]:
+    z_arr = _normalized_embedding(z)
+    y = np.asarray(labels, dtype=np.int64)
+    n = int(z_arr.shape[0])
+    if n <= 1 or np.unique(y).size < 2:
+        return {f"label_conductance{k}": float("nan"), f"graph_separation{k}": float("nan")}
+    k_eff = min(int(k), n - 1)
+    sim = z_arr @ z_arr.T
+    np.fill_diagonal(sim, -np.inf)
+    nbr = np.argsort(-sim, axis=1, kind="mergesort")[:, :k_eff]
+    nbr_sets = [set(int(v) for v in row.tolist()) for row in nbr]
+    weights: Dict[tuple[int, int], float] = {}
+    for i in range(n):
+        for j in nbr[i].tolist():
+            jj = int(j)
+            if bool(mutual) and i not in nbr_sets[jj]:
+                continue
+            a, b = (i, jj) if i < jj else (jj, i)
+            if a == b:
+                continue
+            weights[(a, b)] = float(np.exp(float(np.clip(sim[a, b], -1.0, 1.0)) / max(float(tau), 1.0e-8)))
+    if not weights:
+        return {f"label_conductance{k}": float("nan"), f"graph_separation{k}": float("nan")}
+    vals: List[float] = []
+    for c in np.unique(y).tolist():
+        inside = y == int(c)
+        if not np.any(inside) or np.all(inside):
+            continue
+        cut = 0.0
+        vol_s = 0.0
+        vol_t = 0.0
+        for (i, j), w in weights.items():
+            if inside[i] or inside[j]:
+                vol_s += w if inside[i] else 0.0
+                vol_s += w if inside[j] else 0.0
+            if (not inside[i]) or (not inside[j]):
+                vol_t += w if not inside[i] else 0.0
+                vol_t += w if not inside[j] else 0.0
+            if bool(inside[i]) != bool(inside[j]):
+                cut += w
+        denom = max(min(vol_s, vol_t), 1.0e-8)
+        vals.append(float(cut / denom))
+    conductance = float(np.mean(np.asarray(vals, dtype=np.float32))) if vals else float("nan")
+    return {f"label_conductance{k}": conductance, f"graph_separation{k}": float(1.0 - conductance) if np.isfinite(conductance) else float("nan")}
+
+
 def sample_stable_recording_cluster_stats(
     z_val: np.ndarray,
     y_val: np.ndarray,
     recording_id: np.ndarray,
     event_time_sample: np.ndarray | None = None,
     *,
+    knn_k_target: int = 15,
+    min_knn_k: int = 3,
     min_samples_per_unit: int = 8,
     max_samples_per_unit: int = 128,
     max_samples_per_recording: int = 4096,
 ) -> Dict[str, float]:
     out = {
+        "cluster_knn_purity": float("nan"),
+        "cluster_knn_acc": float("nan"),
         "cluster_centroid_acc": float("nan"),
         "cluster_centroid_margin": float("nan"),
         "cluster_recordings": 0.0,
         "cluster_units": 0.0,
         "cluster_samples": 0.0,
+        "cluster_mean_k": float("nan"),
     }
     if z_val.shape[0] == 0:
         return out
@@ -3275,13 +3358,18 @@ def sample_stable_recording_cluster_stats(
         if time_arr.shape[0] != z_arr.shape[0]:
             raise ValueError("event_time_sample must match z_val first dimension")
 
+    rec_purity_vals: List[float] = []
+    rec_knn_acc_vals: List[float] = []
     rec_centroid_acc_vals: List[float] = []
     rec_margin_vals: List[float] = []
     rec_unit_counts: List[int] = []
     rec_sample_counts: List[int] = []
+    rec_k_vals: List[int] = []
     min_unit_samples = max(1, int(min_samples_per_unit))
     max_unit_samples = int(max_samples_per_unit)
     max_recording_samples = int(max_samples_per_recording)
+    k_target = max(1, int(knn_k_target))
+    k_min = max(1, int(min_knn_k))
 
     for rec_value in np.unique(rec_arr).tolist():
         rec_idx_all = np.flatnonzero(rec_arr == int(rec_value)).astype(np.int64, copy=False)
@@ -3308,6 +3396,31 @@ def sample_stable_recording_cluster_stats(
         rec_selected = np.concatenate(selected_parts, axis=0).astype(np.int64, copy=False)
         y_rec = y_arr[rec_selected]
         z_rec = z_arr[rec_selected]
+        unit_counts = [int(np.sum(y_rec == int(unit_value))) for unit_value in selected_units]
+        if not unit_counts:
+            continue
+        k_eff = min(k_target, min(unit_counts) - 1, int(y_rec.shape[0] - 1))
+        if k_eff < k_min:
+            continue
+
+        sim = z_rec @ z_rec.T
+        np.fill_diagonal(sim, -np.inf)
+        neighbor_idx = np.argsort(-sim, axis=1, kind="mergesort")[:, :k_eff]
+        neighbor_labels = y_rec[neighbor_idx]
+        same_neighbor = neighbor_labels == y_rec[:, None]
+        sample_purity = np.mean(same_neighbor.astype(np.float32), axis=1)
+        pred_labels = np.zeros_like(y_rec)
+        for i in range(y_rec.shape[0]):
+            labels_i, counts_i = np.unique(neighbor_labels[i], return_counts=True)
+            pred_labels[i] = int(labels_i[int(np.argmax(counts_i))])
+
+        unit_purity_vals: List[float] = []
+        unit_knn_acc_vals: List[float] = []
+        for unit_value in selected_units:
+            mask = y_rec == int(unit_value)
+            if np.any(mask):
+                unit_purity_vals.append(float(np.mean(sample_purity[mask].astype(np.float32))))
+                unit_knn_acc_vals.append(float(np.mean((pred_labels[mask] == int(unit_value)).astype(np.float32))))
 
         proto_labels = np.asarray(selected_units, dtype=np.int64)
         proto_parts = []
@@ -3341,22 +3454,33 @@ def sample_stable_recording_cluster_stats(
             centroid_acc_unit_vals.append(float(np.mean((pred == int(unit_value)).astype(np.float32))))
             margin_unit_vals.append(float(np.mean((own_sim - other_best).astype(np.float32))))
 
+        if unit_purity_vals:
+            rec_purity_vals.append(float(np.mean(np.asarray(unit_purity_vals, dtype=np.float32))))
+        if unit_knn_acc_vals:
+            rec_knn_acc_vals.append(float(np.mean(np.asarray(unit_knn_acc_vals, dtype=np.float32))))
         if centroid_acc_unit_vals:
             rec_centroid_acc_vals.append(float(np.mean(np.asarray(centroid_acc_unit_vals, dtype=np.float32))))
         if margin_unit_vals:
             rec_margin_vals.append(float(np.mean(np.asarray(margin_unit_vals, dtype=np.float32))))
         rec_unit_counts.append(int(len(selected_units)))
         rec_sample_counts.append(int(y_rec.shape[0]))
+        rec_k_vals.append(int(k_eff))
 
+    if rec_purity_vals:
+        out["cluster_knn_purity"] = float(np.mean(np.asarray(rec_purity_vals, dtype=np.float32)))
+        out["cluster_recordings"] = float(len(rec_purity_vals))
+    if rec_knn_acc_vals:
+        out["cluster_knn_acc"] = float(np.mean(np.asarray(rec_knn_acc_vals, dtype=np.float32)))
     if rec_centroid_acc_vals:
         out["cluster_centroid_acc"] = float(np.mean(np.asarray(rec_centroid_acc_vals, dtype=np.float32)))
-        out["cluster_recordings"] = float(len(rec_centroid_acc_vals))
     if rec_margin_vals:
         out["cluster_centroid_margin"] = float(np.mean(np.asarray(rec_margin_vals, dtype=np.float32)))
     if rec_unit_counts:
         out["cluster_units"] = float(np.sum(np.asarray(rec_unit_counts, dtype=np.int64)))
     if rec_sample_counts:
         out["cluster_samples"] = float(np.sum(np.asarray(rec_sample_counts, dtype=np.int64)))
+    if rec_k_vals:
+        out["cluster_mean_k"] = float(np.mean(np.asarray(rec_k_vals, dtype=np.float32)))
     return out
 
 
@@ -3440,11 +3564,16 @@ def sample_recording_task_embedding_stats(
     max_samples_per_recording: int = 4096,
 ) -> Dict[str, float]:
     out: Dict[str, float] = {
+        "knn_purity5": float("nan"),
+        "knn_purity10": float("nan"),
+        "knn_purity20": float("nan"),
         "lsm10": float("nan"),
         "ber000": float("nan"),
         "ber002": float("nan"),
         "ber005": float("nan"),
         "local_silhouette10": float("nan"),
+        "label_conductance15": float("nan"),
+        "graph_separation15": float("nan"),
         "recording_task_recordings": 0.0,
         "recording_task_units": 0.0,
         "recording_task_samples": 0.0,
@@ -3474,9 +3603,11 @@ def sample_recording_task_embedding_stats(
         z_rec = z_val[rec_idx]
         y_rec = y_arr[rec_idx]
         metrics_rec: Dict[str, float] = {}
+        metrics_rec.update(compute_knn_purity(z_rec, y_rec, k_list=(5, 10, 20), macro_by_label=True))
         metrics_rec.update(compute_local_separation_margin(z_rec, y_rec, k_pos=10, k_neg=10))
         metrics_rec.update(compute_boundary_error_rate(z_rec, y_rec, k=10, margins=(0.0, 0.02, 0.05)))
         metrics_rec.update(compute_local_silhouette(z_rec, y_rec, k=10))
+        metrics_rec.update(compute_label_conductance(z_rec, y_rec, k=15, mutual=True, tau=0.1))
         for key, value in metrics_rec.items():
             if key in metric_parts and np.isfinite(value):
                 metric_parts[key].append(float(value))
@@ -3517,6 +3648,8 @@ def evaluate_stage2_encoder_metrics(
     val_event_time_sample: np.ndarray | None = None,
     apply_encode_gate: bool = False,
     cluster_enabled: bool = True,
+    cluster_knn_k_target: int = 15,
+    cluster_min_knn_k: int = 3,
     cluster_min_samples_per_unit: int = 8,
     cluster_max_samples_per_unit: int = 128,
     cluster_max_samples_per_recording: int = 4096,
@@ -3542,16 +3675,24 @@ def evaluate_stage2_encoder_metrics(
         f"{metric_prefix}_holdout_recordings_gt": 0.0,
         f"{metric_prefix}_holdout_units_gt": 0.0,
         f"{metric_prefix}_holdout_samples_gt": 0.0,
+        f"{metric_prefix}_cluster_knn_purity_gt": float("nan"),
+        f"{metric_prefix}_cluster_knn_acc_gt": float("nan"),
         f"{metric_prefix}_cluster_centroid_acc_gt": float("nan"),
         f"{metric_prefix}_cluster_centroid_margin_gt": float("nan"),
         f"{metric_prefix}_cluster_recordings_gt": 0.0,
         f"{metric_prefix}_cluster_units_gt": 0.0,
         f"{metric_prefix}_cluster_samples_gt": 0.0,
+        f"{metric_prefix}_cluster_mean_k_gt": float("nan"),
+        f"{metric_prefix}_knn_purity5_gt": float("nan"),
+        f"{metric_prefix}_knn_purity10_gt": float("nan"),
+        f"{metric_prefix}_knn_purity20_gt": float("nan"),
         f"{metric_prefix}_lsm10_gt": float("nan"),
         f"{metric_prefix}_ber000_gt": float("nan"),
         f"{metric_prefix}_ber002_gt": float("nan"),
         f"{metric_prefix}_ber005_gt": float("nan"),
         f"{metric_prefix}_local_silhouette10_gt": float("nan"),
+        f"{metric_prefix}_label_conductance15_gt": float("nan"),
+        f"{metric_prefix}_graph_separation15_gt": float("nan"),
         f"{metric_prefix}_recording_task_recordings_gt": 0.0,
         f"{metric_prefix}_recording_task_units_gt": 0.0,
         f"{metric_prefix}_recording_task_samples_gt": 0.0,
@@ -3596,15 +3737,20 @@ def evaluate_stage2_encoder_metrics(
                 y_val[cluster_idx],
                 val_recording_id[cluster_idx],
                 val_event_time[cluster_idx] if val_event_time is not None else None,
+                knn_k_target=int(cluster_knn_k_target),
+                min_knn_k=int(cluster_min_knn_k),
                 min_samples_per_unit=int(cluster_min_samples_per_unit),
                 max_samples_per_unit=int(cluster_max_samples_per_unit),
                 max_samples_per_recording=int(cluster_max_samples_per_recording),
             )
+            metrics[f"{metric_prefix}_cluster_knn_purity_gt"] = float(cluster_stats["cluster_knn_purity"])
+            metrics[f"{metric_prefix}_cluster_knn_acc_gt"] = float(cluster_stats["cluster_knn_acc"])
             metrics[f"{metric_prefix}_cluster_centroid_acc_gt"] = float(cluster_stats["cluster_centroid_acc"])
             metrics[f"{metric_prefix}_cluster_centroid_margin_gt"] = float(cluster_stats["cluster_centroid_margin"])
             metrics[f"{metric_prefix}_cluster_recordings_gt"] = float(cluster_stats["cluster_recordings"])
             metrics[f"{metric_prefix}_cluster_units_gt"] = float(cluster_stats["cluster_units"])
             metrics[f"{metric_prefix}_cluster_samples_gt"] = float(cluster_stats["cluster_samples"])
+            metrics[f"{metric_prefix}_cluster_mean_k_gt"] = float(cluster_stats["cluster_mean_k"])
             recording_task_stats = sample_recording_task_embedding_stats(
                 z_cluster,
                 y_val[cluster_idx],
@@ -3688,8 +3834,8 @@ def stage2_encoder_model_rank(
         for candidate in (
             "val_lsm10_operational_gt",
             "val_lsm10_gt",
-            "val_ber002_operational_gt",
-            "val_local_silhouette10_operational_gt",
+            "val_knn_purity10_operational_gt",
+            "val_knn_purity10_gt",
         ):
             if candidate in metrics:
                 primary_key = candidate
@@ -3698,8 +3844,8 @@ def stage2_encoder_model_rank(
             primary_key = "val_lsm10_operational_gt"
     if secondary_key is None:
         for candidate in (
-            "val_ber002_operational_gt",
-            "val_local_silhouette10_operational_gt",
+            "val_knn_purity10_operational_gt",
+            "val_knn_purity10_gt",
             "val_lsm10_operational_gt",
             "val_lsm10_gt",
         ):
@@ -3707,9 +3853,9 @@ def stage2_encoder_model_rank(
                 secondary_key = candidate
                 break
         else:
-            secondary_key = "val_ber002_operational_gt"
+            secondary_key = "val_knn_purity10_operational_gt"
     if tertiary_key is None:
-        tertiary_key = "val_local_silhouette10_operational_gt"
+        tertiary_key = "val_ber002_operational_gt"
 
     def _rank_value(key: str, *, lower_is_better: bool = False) -> float:
         value = float(metrics.get(key, float("nan")))
@@ -3775,6 +3921,8 @@ def build_stage2_metric_view(
         f"val_holdout_recordings_{suffix}_gt": float(raw_metrics.get("val_holdout_recordings_gt", 0.0)),
         f"val_holdout_units_{suffix}_gt": float(raw_metrics.get("val_holdout_units_gt", 0.0)),
         f"val_holdout_samples_{suffix}_gt": float(raw_metrics.get("val_holdout_samples_gt", 0.0)),
+        f"val_cluster_knn_purity_{suffix}_gt": float(raw_metrics.get("val_cluster_knn_purity_gt", float("nan"))),
+        f"val_cluster_knn_acc_{suffix}_gt": float(raw_metrics.get("val_cluster_knn_acc_gt", float("nan"))),
         f"val_cluster_centroid_acc_{suffix}_gt": float(raw_metrics.get("val_cluster_centroid_acc_gt", float("nan"))),
         f"val_cluster_centroid_margin_{suffix}_gt": float(
             raw_metrics.get("val_cluster_centroid_margin_gt", float("nan"))
@@ -3782,11 +3930,17 @@ def build_stage2_metric_view(
         f"val_cluster_recordings_{suffix}_gt": float(raw_metrics.get("val_cluster_recordings_gt", 0.0)),
         f"val_cluster_units_{suffix}_gt": float(raw_metrics.get("val_cluster_units_gt", 0.0)),
         f"val_cluster_samples_{suffix}_gt": float(raw_metrics.get("val_cluster_samples_gt", 0.0)),
+        f"val_cluster_mean_k_{suffix}_gt": float(raw_metrics.get("val_cluster_mean_k_gt", float("nan"))),
+        f"val_knn_purity5_{suffix}_gt": float(raw_metrics.get("val_knn_purity5_gt", float("nan"))),
+        f"val_knn_purity10_{suffix}_gt": float(raw_metrics.get("val_knn_purity10_gt", float("nan"))),
+        f"val_knn_purity20_{suffix}_gt": float(raw_metrics.get("val_knn_purity20_gt", float("nan"))),
         f"val_lsm10_{suffix}_gt": float(raw_metrics.get("val_lsm10_gt", float("nan"))),
         f"val_ber000_{suffix}_gt": float(raw_metrics.get("val_ber000_gt", float("nan"))),
         f"val_ber002_{suffix}_gt": float(raw_metrics.get("val_ber002_gt", float("nan"))),
         f"val_ber005_{suffix}_gt": float(raw_metrics.get("val_ber005_gt", float("nan"))),
         f"val_local_silhouette10_{suffix}_gt": float(raw_metrics.get("val_local_silhouette10_gt", float("nan"))),
+        f"val_label_conductance15_{suffix}_gt": float(raw_metrics.get("val_label_conductance15_gt", float("nan"))),
+        f"val_graph_separation15_{suffix}_gt": float(raw_metrics.get("val_graph_separation15_gt", float("nan"))),
         f"val_recording_task_recordings_{suffix}_gt": float(
             raw_metrics.get("val_recording_task_recordings_gt", 0.0)
         ),
@@ -3836,8 +3990,8 @@ def resolve_stage_training_config(
     stage2_cfg.setdefault("domain_sampling", "round_robin")
     stage2_cfg.setdefault("use_encode_gate", False)
     stage2_cfg.setdefault("select_metric_primary", "val_lsm10_operational_gt")
-    stage2_cfg.setdefault("select_metric_secondary", "val_ber002_operational_gt")
-    stage2_cfg.setdefault("select_metric_tertiary", "val_local_silhouette10_operational_gt")
+    stage2_cfg.setdefault("select_metric_secondary", "val_knn_purity10_operational_gt")
+    stage2_cfg.setdefault("select_metric_tertiary", "val_ber002_operational_gt")
     stage2_cfg.setdefault("reset_optimizer_on_entry", True)
     stage2_cfg.setdefault("reset_scheduler_warmup_epochs", 2)
     stage1_encoder_aux_cfg = dict(stage1_cfg.get("encoder_aux", {}) or {})
@@ -4221,9 +4375,19 @@ def main() -> None:
         action="store_true",
         help="validate config, inputs, cache state, device, and model construction without loading data or training",
     )
+    ap.add_argument("--manifest", help="ordered training recording manifest")
+    ap.add_argument("--data-root", help="root containing manifest recording paths")
+    ap.add_argument("--stage2-init-from", help="start encoder training from a stage-1 checkpoint")
     args = ap.parse_args()
+    args.config = str(resolve_path(args.config, ROOT))
 
     cfg_preview = load_yaml(args.config)
+    manifest_spec = args.manifest or cfg_preview.get("data", {}).get("manifest")
+    training_manifest = None
+    if manifest_spec and not args.mearec_h5 and not args.patches:
+        training_manifest = load_recording_manifest(resolve_path(manifest_spec, ROOT))
+        cfg_preview["data"]["mearec_h5_paths"] = [str(p) for p in resolve_data_records(
+            training_manifest, args.data_root or cfg_preview["data"].get("data_root", "data/recordings"), ROOT)]
     train_preview = cfg_preview.get("train", {})
     if args.log_file:
         log_path = resolve_path(args.log_file, ROOT)
@@ -4257,6 +4421,9 @@ def main() -> None:
     stage1_epochs = int(stage1_cfg.get("epochs", 0))
     stage2_epochs = int(stage2_cfg.get("epochs", 0))
     total_epochs = int(stage_cfg.get("total_epochs", stage1_epochs + stage2_epochs))
+    stage2_schedule_epochs = int(stage2_cfg.get("schedule_epochs", stage2_epochs))
+    if stage2_schedule_epochs < stage2_epochs:
+        raise ValueError("stage2 schedule_epochs must cover all execution epochs")
 
     seed = int(cfg.get("seed", 42))
     logger.info("stage=set_seed start seed=%d", seed)
@@ -4290,6 +4457,15 @@ def main() -> None:
     auto_resume = bool(train_cfg.get("auto_resume", False)) or args.auto_resume
     resume_from_cfg = train_cfg.get("resume_from", "")
     resume_from = args.resume_from or (str(resume_from_cfg) if resume_from_cfg else None)
+    stage2_init_raw = args.stage2_init_from or train_cfg.get("stage2_init_from")
+    stage2_init_path = resolve_path(stage2_init_raw, ROOT) if stage2_init_raw else None
+    if stage2_init_path is not None:
+        if resume_from or auto_resume:
+            raise ValueError("stage2-init-from cannot be combined with resume")
+        if stage1_epochs <= 0 or stage2_epochs <= 0:
+            raise ValueError("stage2-init-from requires configured stage-1 and stage-2 epochs")
+        if not stage2_init_path.is_file():
+            raise FileNotFoundError(f"stage-1 checkpoint not found: {stage2_init_path}")
     log_every_steps = int(train_cfg.get("log_every_steps", 0))
     logger.info("data_source mearec_files=%d cached_patches=%s", len(mearec_h5), str(patches_path))
     logger.info("log_every_steps=%d", log_every_steps)
@@ -4741,6 +4917,10 @@ def main() -> None:
                 min_train_samples_per_unit=val_min_train_samples_per_unit,
                 min_val_samples_per_unit=val_min_val_samples_per_unit,
             )
+            if training_manifest and training_manifest.get("validation_indices") is not None:
+                expected = list(training_manifest["validation_indices"])
+                if list(split_summary["val_recordings"]) != expected:
+                    raise ValueError(f"training split differs from paper manifest: expected {expected}, got {split_summary['val_recordings']}")
             logger.info(
                 "validation_split mode=recording_holdout val_recording_ratio=%.4f train_recordings=%s val_recordings=%s eligible_val_recordings=%s candidate_spikes=%d valid_units=%s",
                 val_recording_ratio,
@@ -5047,7 +5227,7 @@ def main() -> None:
         int(max(1, math.ceil(max(1, train_stage2_reference_positive_idx.shape[0]) / max(1, bs)))) if stage2_epochs > 0 else 0
     )
     stage1_total_train_steps = int(max(1, stage1_epochs * max(1, stage1_steps_per_epoch))) if stage1_epochs > 0 else 0
-    stage2_reference_total_train_steps = int(max(1, stage2_epochs * max(1, stage2_steps_per_epoch))) if stage2_epochs > 0 else 0
+    stage2_reference_total_train_steps = int(max(1, stage2_schedule_epochs * max(1, stage2_steps_per_epoch))) if stage2_epochs > 0 else 0
     total_train_steps = int(max(1, (stage1_epochs * stage1_steps_per_epoch) + (stage2_epochs * stage2_steps_per_epoch)))
 
     base_lr = float(train_cfg.get("lr", 1e-3))
@@ -5228,7 +5408,7 @@ def main() -> None:
         str(stage2_cfg.get("domain_sampling", "round_robin")),
         str(stage2_cfg.get("use_encode_gate", False)),
         str(stage2_cfg.get("select_metric_primary", "val_lsm10_operational_gt")),
-        str(stage2_cfg.get("select_metric_secondary", "val_ber002_operational_gt")),
+        str(stage2_cfg.get("select_metric_secondary", "val_knn_purity10_operational_gt")),
         str(stage2_reset_optimizer_on_entry),
         int(stage2_reset_scheduler_warmup_epochs),
         int(train_stage2_reference_allowed_units.size),
@@ -5309,6 +5489,17 @@ def main() -> None:
                 logger.info("scheduler_fast_forwarded steps=%d", fast_steps)
         logger.info("stage=resume done start_epoch=%d global_step=%d", start_epoch, global_step)
 
+    if stage2_init_path is not None:
+        stage1_payload = load_training_checkpoint_payload(stage2_init_path, device=device)
+        stage1_metadata = dict(stage1_payload.get("metadata", {}) or {})
+        if stage1_metadata.get("stage") != "stage1_gate":
+            raise ValueError("stage2-init-from requires a stage-1 checkpoint")
+        resume_gate_calibration = dict(stage1_metadata.get("gate_calibration", {}) or {})
+        if not resume_gate_calibration.get("fixed_gate_goal_reached", False):
+            raise ValueError("stage-1 checkpoint did not reach the fixed gate goal")
+        start_epoch = stage1_epochs
+        del stage1_payload
+
     latest_gate_calibration: Dict[str, Any] = {
         "encode_gate_thresh": float(model.cfg.encode_gate_thresh),
         "assignment_gate_thresh": float(model.cfg.assignment_gate_thresh),
@@ -5351,13 +5542,13 @@ def main() -> None:
     best_stage2_reference_metrics: Dict[str, float] | None = None
     best_stage2_mixed_metrics: Dict[str, float] | None = None
     best_stage2_model_state: Dict[str, torch.Tensor] | None = None
-    best_stage1_checkpoint_path = checkpoint_dir / "stage1_gate_best.ckpt"
+    best_stage1_checkpoint_path = stage2_init_path or checkpoint_dir / "stage1_gate_best.ckpt"
     best_stage2_checkpoint_path = checkpoint_dir / "pretrain_best.ckpt"
     stage2_freeze_scope = str(stage2_cfg.get("freeze_scope", "gate_net_only"))
     stage2_source_mode = str(stage2_cfg.get("source_mode", "matched_positives")).lower()
     stage2_select_primary = str(stage2_cfg.get("select_metric_primary", "val_lsm10_operational_gt"))
-    stage2_select_secondary = str(stage2_cfg.get("select_metric_secondary", "val_ber002_operational_gt"))
-    stage2_select_tertiary = str(stage2_cfg.get("select_metric_tertiary", "val_local_silhouette10_operational_gt"))
+    stage2_select_secondary = str(stage2_cfg.get("select_metric_secondary", "val_knn_purity10_operational_gt"))
+    stage2_select_tertiary = str(stage2_cfg.get("select_metric_tertiary", "val_ber002_operational_gt"))
     stage2_prepared = False
     stage2_fallback_reason: str | None = None
     stage2_gate_filter_summary: Dict[str, Any] = {}
@@ -5416,6 +5607,8 @@ def main() -> None:
                 optimizer=opt,
                 device=device,
                 scheduler=scheduler,
+                restore_optimizer=not stage2_reset_optimizer_on_entry,
+                restore_scheduler=not stage2_reset_optimizer_on_entry,
             )
             global_step = int(restored_global_step)
             if (
@@ -5722,7 +5915,7 @@ def main() -> None:
                 lr=base_lr,
                 weight_decay=weight_decay,
             )
-            stage2_total_train_steps = int(max(1, stage2_epochs * max(1, stage2_steps_per_epoch)))
+            stage2_total_train_steps = int(max(1, stage2_schedule_epochs * max(1, stage2_steps_per_epoch)))
             scheduler, stage2_scheduler_info = build_scheduler_from_config(
                 opt,
                 scheduler_cfg=scheduler_cfg,
@@ -5741,24 +5934,20 @@ def main() -> None:
                 int(stage2_scheduler_info.get("total_steps", 0)),
             )
             if deferred_stage2_resume is not None:
-                load_model_state_from_checkpoint_payload(deferred_stage2_resume, model=model)
-                restored_global_step = (
-                    int(deferred_stage2_resume.get("global_step", 0))
-                    if isinstance(deferred_stage2_resume, dict)
-                    else 0
-                )
+                _, restored_global_step, scheduler_loaded = restore_training_checkpoint_payload(
+                    deferred_stage2_resume, model=model, optimizer=opt, device=device, scheduler=scheduler)
                 global_step = int(restored_global_step)
-                if scheduler is not None:
+                if scheduler is not None and not scheduler_loaded:
                     stage2_completed_epochs = int(max(0, start_epoch - stage1_epochs))
                     fast_steps = int(min(stage2_completed_epochs * stage2_steps_per_epoch, stage2_total_train_steps))
                     scheduler.step(fast_steps)
                     logger.info(
-                        "stage2_resume_model_only scheduler_fast_forwarded steps=%d restored_global_step=%d",
+                        "stage2_resume scheduler_fast_forwarded steps=%d restored_global_step=%d",
                         fast_steps,
                         global_step,
                     )
                 else:
-                    logger.info("stage2_resume_model_only restored_global_step=%d", global_step)
+                    logger.info("stage2_resume restored_global_step=%d", global_step)
                 deferred_metadata = (
                     dict(deferred_stage2_resume.get("metadata", {}) or {}) if isinstance(deferred_stage2_resume, dict) else {}
                 )
@@ -6153,6 +6342,7 @@ def main() -> None:
         float(train_cfg.get("weight_decay", 1e-4)),
         save_out,
     )
+    logger.info("stage2 execution_epochs=%d schedule_epochs=%d", stage2_epochs, stage2_schedule_epochs)
     logger.info("stage=train_loop start")
     total_start = time.perf_counter()
     if start_epoch >= total_epochs:
@@ -6986,6 +7176,8 @@ def main() -> None:
             )
             logger.info("checkpoint_saved path=%s", ckpt_path)
 
+    if stage2_epochs > 0 and best_stage2_model_state is None:
+        raise RuntimeError(f"No valid encoder checkpoint: {stage2_fallback_reason}")
     logger.info("stage=train_loop done")
     final_model_stage = "current"
     final_stage2_reference_metrics: Dict[str, float] = {}

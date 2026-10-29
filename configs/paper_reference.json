@@ -1,0 +1,35 @@
+{
+  "checkpoints": {
+    "encoder": {
+      "sha256": "264a38ec6a79833ede491e38365dd75227445bb284174aa4c6137811297525ff",
+      "stage": "stage2_encoder",
+      "destination": "weights/paper_encoder.ckpt",
+      "encoder_epoch": 6
+    },
+    "stage1": {
+      "sha256": "1af52462d4912a1b6f44d6e785dea103e5bb013f7204575cd1049ea8135fcf18",
+      "stage": "stage1_gate",
+      "destination": "weights/stage1_gate.ckpt"
+    }
+  },
+  "metrics": {
+    "overall": {
+      "precision": 0.8451,
+      "recall": 0.658,
+      "f1": 0.7321
+    },
+    "static": {
+      "f1": 0.7623
+    },
+    "drift": {
+      "f1": 0.7019
+    }
+  },
+  "scoring_interval_s": [
+    5,
+    100
+  ],
+  "initialization_s": 5,
+  "tolerance_ms": 0.5,
+  "recordings": 384
+}

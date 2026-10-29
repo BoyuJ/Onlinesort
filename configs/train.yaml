@@ -1,12 +1,9 @@
-# Public training template for the final Onlinesort configuration.
-# Fill data.mearec_h5_paths with your own MEArec H5 files before training.
-
+# Paper model: NCE + Identity Discrimination Loss. Paths are project-relative.
 seed: 42
-
 train:
   device: auto
   log_file: data/logs/onlinesort_train.log
-  save: checkpoints/onlinesort_train.pt
+  save: data/checkpoints/onlinesort_train/best_weights.pt
   checkpoint_dir: data/checkpoints/onlinesort_train
   checkpoint_every_epochs: 25
   auto_resume: false
@@ -48,9 +45,9 @@ train:
     seed: 43
     gate_fixed_threshold: 0.5
     gate_goal_spike_recall: 0.94
-    gate_goal_noise_accuracy: 0.90
+    gate_goal_noise_accuracy: 0.9
     gate_target_recall_encode: 0.95
-    gate_target_recall_assignment_min: 0.90
+    gate_target_recall_assignment_min: 0.9
     gate_warmup_epochs: 3
     gate_patience: 3
     gate_min_f1_gain: 0.05
@@ -59,16 +56,18 @@ train:
       min_samples_per_unit: 8
       max_samples_per_unit: 0
       max_samples_per_recording: 60000
+      knn_k_target: 15
+      min_knn_k: 3
   stage1_gate:
     epochs: 20
     steps_per_epoch: 800
     selection_mode: fixed_0_5_acceptance
     acceptance_min_precision: 0.99
-    acceptance_min_recall: 0.90
+    acceptance_min_recall: 0.9
     encoder_aux:
       enabled: false
   stage2_encoder:
-    epochs: 60
+    epochs: 30
     source_mode: matched_positives
     freeze_scope: gate_net_only
     data_filter: frozen_encode_gate
@@ -77,11 +76,11 @@ train:
     domain_sampling: round_robin
     use_encode_gate: false
     select_metric_primary: val_lsm10_operational_gt
-    select_metric_secondary: val_ber002_operational_gt
-    select_metric_tertiary: val_local_silhouette10_operational_gt
+    select_metric_secondary: val_knn_purity10_operational_gt
+    select_metric_tertiary: val_ber002_operational_gt
     reset_optimizer_on_entry: true
     reset_scheduler_warmup_epochs: 2
-
+    schedule_epochs: 60
 model:
   embed_dim: 128
   hidden_dim: 128
@@ -99,12 +98,7 @@ model:
   fixed_gate_threshold: 0.5
   gate_pos_weight_scale: 1.0
   gate_spatial_dim: 5
-
 data:
-  # Example:
-  # mearec_h5_paths:
-  #   - /path/to/train_input_a.h5
-  #   - /path/to/train_input_b.h5
   mearec_h5_paths: []
   patches: data/cache/onlinesort_train_patches.npy
   labels: data/cache/onlinesort_train_labels.npz
@@ -119,8 +113,8 @@ data:
   uid_consistency_preflight_enabled: false
   detector:
     alpha: 4.0
-    refractory_ms: 0.30
-    merge_dt_ms: 0.20
+    refractory_ms: 0.3
+    merge_dt_ms: 0.2
     merge_enabled: true
     merge_mode: neighbors
     merge_radius_ch: 1
@@ -139,12 +133,13 @@ data:
     hard_min_spatial_score: 0.0
     hard_min_support: 1
     hard_filter_mode: soft
-
+  manifest: configs/manifests/train.json
+  data_root: data/recordings
 stage2:
   enabled: true
   allowed_sources:
-    - primary_matched_positive
-    - secondary_matched_positive
+  - primary_matched_positive
+  - secondary_matched_positive
   gate_threshold: 0.5
   local_proto_hold_epochs: 0
   local_proto_ramp_epochs: 0
@@ -164,11 +159,15 @@ stage2:
       hard_neg: 16
       tau: 0.08
       delta: 0.08
+      proto_strategy: farthest
+      same_proto_weight: 0.0
+      temporal_chain_weight: 0.0
     temporal_connection:
       enabled: true
       weight: 0.2
-      tau_conn: 0.20
-      max_pairs_per_recording: 128
+      mode: global_compact_margin
+      relative_margin: 0.08
+      negative_events: 16
     boundary:
       enabled: false
       weight: 0.0
@@ -183,10 +182,8 @@ stage2:
     min_spatial_score: 0.0
     max_simul_local: 1
     max_simul_global: 5
-
 loss:
   lambda_gate: 1.0
-
 online:
   clustering:
     candidate_hop: 2
@@ -197,4 +194,4 @@ online:
     confidence_reject_min: 0.05
     accept_thresh: 0.65
     margin_thresh: 0.05
-    update_conf_min: 0.70
+    update_conf_min: 0.7

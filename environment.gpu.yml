@@ -1,18 +1,10 @@
 name: onlinesort-gpu
 channels:
-  - pytorch
-  - nvidia
   - conda-forge
 dependencies:
   - python=3.12
   - pip
-  - numpy
-  - scipy
-  - h5py
-  - pyyaml
-  - matplotlib
-  - scikit-learn
-  - hdbscan
-  - pytest
-  - pytorch
-  - pytorch-cuda=12.1
+  - libstdcxx>=14
+  - pip:
+      - -r requirements-dev.txt
+      - -c constraints-paper.txt

@@ -1,0 +1,2309 @@
+{
+  "schema_version": 1,
+  "records": [
+    {
+      "name": "ood_test3_drift_n10_eta005",
+      "path": "ood_test3/hd32_drift/recording_n10_eta005.h5",
+      "condition": "drift",
+      "bytes": 732029448
+    },
+    {
+      "name": "ood_test3_drift_n10_eta005_seg2",
+      "path": "ood_test3/hd32_drift/recording_n10_eta005_seg2.h5",
+      "condition": "drift",
+      "bytes": 732031608
+    },
+    {
+      "name": "ood_test3_drift_n10_eta005_seg3",
+      "path": "ood_test3/hd32_drift/recording_n10_eta005_seg3.h5",
+      "condition": "drift",
+      "bytes": 732028728
+    },
+    {
+      "name": "ood_test3_drift_n10_eta010",
+      "path": "ood_test3/hd32_drift/recording_n10_eta010.h5",
+      "condition": "drift",
+      "bytes": 732029336
+    },
+    {
+      "name": "ood_test3_drift_n10_eta010_seg2",
+      "path": "ood_test3/hd32_drift/recording_n10_eta010_seg2.h5",
+      "condition": "drift",
+      "bytes": 732026968
+    },
+    {
+      "name": "ood_test3_drift_n10_eta010_seg3",
+      "path": "ood_test3/hd32_drift/recording_n10_eta010_seg3.h5",
+      "condition": "drift",
+      "bytes": 732031944
+    },
+    {
+      "name": "ood_test3_drift_n10_eta015",
+      "path": "ood_test3/hd32_drift/recording_n10_eta015.h5",
+      "condition": "drift",
+      "bytes": 732047232
+    },
+    {
+      "name": "ood_test3_drift_n10_eta015_seg2",
+      "path": "ood_test3/hd32_drift/recording_n10_eta015_seg2.h5",
+      "condition": "drift",
+      "bytes": 732040576
+    },
+    {
+      "name": "ood_test3_drift_n10_eta015_seg3",
+      "path": "ood_test3/hd32_drift/recording_n10_eta015_seg3.h5",
+      "condition": "drift",
+      "bytes": 732031720
+    },
+    {
+      "name": "ood_test3_drift_n10_eta020",
+      "path": "ood_test3/hd32_drift/recording_n10_eta020.h5",
+      "condition": "drift",
+      "bytes": 732029640
+    },
+    {
+      "name": "ood_test3_drift_n10_eta020_seg2",
+      "path": "ood_test3/hd32_drift/recording_n10_eta020_seg2.h5",
+      "condition": "drift",
+      "bytes": 732035808
+    },
+    {
+      "name": "ood_test3_drift_n10_eta020_seg3",
+      "path": "ood_test3/hd32_drift/recording_n10_eta020_seg3.h5",
+      "condition": "drift",
+      "bytes": 732038624
+    },
+    {
+      "name": "ood_test3_drift_n11_eta005",
+      "path": "ood_test3/hd32_drift/recording_n11_eta005.h5",
+      "condition": "drift",
+      "bytes": 761684072
+    },
+    {
+      "name": "ood_test3_drift_n11_eta005_seg2",
+      "path": "ood_test3/hd32_drift/recording_n11_eta005_seg2.h5",
+      "condition": "drift",
+      "bytes": 761674776
+    },
+    {
+      "name": "ood_test3_drift_n11_eta005_seg3",
+      "path": "ood_test3/hd32_drift/recording_n11_eta005_seg3.h5",
+      "condition": "drift",
+      "bytes": 761672008
+    },
+    {
+      "name": "ood_test3_drift_n11_eta010",
+      "path": "ood_test3/hd32_drift/recording_n11_eta010.h5",
+      "condition": "drift",
+      "bytes": 761683352
+    },
+    {
+      "name": "ood_test3_drift_n11_eta010_seg2",
+      "path": "ood_test3/hd32_drift/recording_n11_eta010_seg2.h5",
+      "condition": "drift",
+      "bytes": 761678472
+    },
+    {
+      "name": "ood_test3_drift_n11_eta010_seg3",
+      "path": "ood_test3/hd32_drift/recording_n11_eta010_seg3.h5",
+      "condition": "drift",
+      "bytes": 761673592
+    },
+    {
+      "name": "ood_test3_drift_n11_eta015",
+      "path": "ood_test3/hd32_drift/recording_n11_eta015.h5",
+      "condition": "drift",
+      "bytes": 761692920
+    },
+    {
+      "name": "ood_test3_drift_n11_eta015_seg2",
+      "path": "ood_test3/hd32_drift/recording_n11_eta015_seg2.h5",
+      "condition": "drift",
+      "bytes": 761672904
+    },
+    {
+      "name": "ood_test3_drift_n11_eta015_seg3",
+      "path": "ood_test3/hd32_drift/recording_n11_eta015_seg3.h5",
+      "condition": "drift",
+      "bytes": 761669136
+    },
+    {
+      "name": "ood_test3_drift_n11_eta020",
+      "path": "ood_test3/hd32_drift/recording_n11_eta020.h5",
+      "condition": "drift",
+      "bytes": 761668192
+    },
+    {
+      "name": "ood_test3_drift_n11_eta020_seg2",
+      "path": "ood_test3/hd32_drift/recording_n11_eta020_seg2.h5",
+      "condition": "drift",
+      "bytes": 761672064
+    },
+    {
+      "name": "ood_test3_drift_n11_eta020_seg3",
+      "path": "ood_test3/hd32_drift/recording_n11_eta020_seg3.h5",
+      "condition": "drift",
+      "bytes": 761673656
+    },
+    {
+      "name": "ood_test3_drift_n12_eta005",
+      "path": "ood_test3/hd32_drift/recording_n12_eta005.h5",
+      "condition": "drift",
+      "bytes": 791335552
+    },
+    {
+      "name": "ood_test3_drift_n12_eta005_seg2",
+      "path": "ood_test3/hd32_drift/recording_n12_eta005_seg2.h5",
+      "condition": "drift",
+      "bytes": 791332232
+    },
+    {
+      "name": "ood_test3_drift_n12_eta005_seg3",
+      "path": "ood_test3/hd32_drift/recording_n12_eta005_seg3.h5",
+      "condition": "drift",
+      "bytes": 791326576
+    },
+    {
+      "name": "ood_test3_drift_n12_eta010",
+      "path": "ood_test3/hd32_drift/recording_n12_eta010.h5",
+      "condition": "drift",
+      "bytes": 791338472
+    },
+    {
+      "name": "ood_test3_drift_n12_eta010_seg2",
+      "path": "ood_test3/hd32_drift/recording_n12_eta010_seg2.h5",
+      "condition": "drift",
+      "bytes": 791331224
+    },
+    {
+      "name": "ood_test3_drift_n12_eta010_seg3",
+      "path": "ood_test3/hd32_drift/recording_n12_eta010_seg3.h5",
+      "condition": "drift",
+      "bytes": 791334344
+    },
+    {
+      "name": "ood_test3_drift_n12_eta015",
+      "path": "ood_test3/hd32_drift/recording_n12_eta015.h5",
+      "condition": "drift",
+      "bytes": 791332720
+    },
+    {
+      "name": "ood_test3_drift_n12_eta015_seg2",
+      "path": "ood_test3/hd32_drift/recording_n12_eta015_seg2.h5",
+      "condition": "drift",
+      "bytes": 791332248
+    },
+    {
+      "name": "ood_test3_drift_n12_eta015_seg3",
+      "path": "ood_test3/hd32_drift/recording_n12_eta015_seg3.h5",
+      "condition": "drift",
+      "bytes": 791331136
+    },
+    {
+      "name": "ood_test3_drift_n12_eta020",
+      "path": "ood_test3/hd32_drift/recording_n12_eta020.h5",
+      "condition": "drift",
+      "bytes": 791330792
+    },
+    {
+      "name": "ood_test3_drift_n12_eta020_seg2",
+      "path": "ood_test3/hd32_drift/recording_n12_eta020_seg2.h5",
+      "condition": "drift",
+      "bytes": 791329640
+    },
+    {
+      "name": "ood_test3_drift_n12_eta020_seg3",
+      "path": "ood_test3/hd32_drift/recording_n12_eta020_seg3.h5",
+      "condition": "drift",
+      "bytes": 791324672
+    },
+    {
+      "name": "ood_test3_drift_n13_eta005",
+      "path": "ood_test3/hd32_drift/recording_n13_eta005.h5",
+      "condition": "drift",
+      "bytes": 820988064
+    },
+    {
+      "name": "ood_test3_drift_n13_eta005_seg2",
+      "path": "ood_test3/hd32_drift/recording_n13_eta005_seg2.h5",
+      "condition": "drift",
+      "bytes": 820985640
+    },
+    {
+      "name": "ood_test3_drift_n13_eta005_seg3",
+      "path": "ood_test3/hd32_drift/recording_n13_eta005_seg3.h5",
+      "condition": "drift",
+      "bytes": 820990624
+    },
+    {
+      "name": "ood_test3_drift_n13_eta010",
+      "path": "ood_test3/hd32_drift/recording_n13_eta010.h5",
+      "condition": "drift",
+      "bytes": 820992688
+    },
+    {
+      "name": "ood_test3_drift_n13_eta010_seg2",
+      "path": "ood_test3/hd32_drift/recording_n13_eta010_seg2.h5",
+      "condition": "drift",
+      "bytes": 820982000
+    },
+    {
+      "name": "ood_test3_drift_n13_eta010_seg3",
+      "path": "ood_test3/hd32_drift/recording_n13_eta010_seg3.h5",
+      "condition": "drift",
+      "bytes": 820987280
+    },
+    {
+      "name": "ood_test3_drift_n13_eta015",
+      "path": "ood_test3/hd32_drift/recording_n13_eta015.h5",
+      "condition": "drift",
+      "bytes": 820981848
+    },
+    {
+      "name": "ood_test3_drift_n13_eta015_seg2",
+      "path": "ood_test3/hd32_drift/recording_n13_eta015_seg2.h5",
+      "condition": "drift",
+      "bytes": 820997040
+    },
+    {
+      "name": "ood_test3_drift_n13_eta015_seg3",
+      "path": "ood_test3/hd32_drift/recording_n13_eta015_seg3.h5",
+      "condition": "drift",
+      "bytes": 820982520
+    },
+    {
+      "name": "ood_test3_drift_n13_eta020",
+      "path": "ood_test3/hd32_drift/recording_n13_eta020.h5",
+      "condition": "drift",
+      "bytes": 821001504
+    },
+    {
+      "name": "ood_test3_drift_n13_eta020_seg2",
+      "path": "ood_test3/hd32_drift/recording_n13_eta020_seg2.h5",
+      "condition": "drift",
+      "bytes": 820991360
+    },
+    {
+      "name": "ood_test3_drift_n13_eta020_seg3",
+      "path": "ood_test3/hd32_drift/recording_n13_eta020_seg3.h5",
+      "condition": "drift",
+      "bytes": 820984520
+    },
+    {
+      "name": "ood_test3_drift_n14_eta005",
+      "path": "ood_test3/hd32_drift/recording_n14_eta005.h5",
+      "condition": "drift",
+      "bytes": 850639832
+    },
+    {
+      "name": "ood_test3_drift_n14_eta005_seg2",
+      "path": "ood_test3/hd32_drift/recording_n14_eta005_seg2.h5",
+      "condition": "drift",
+      "bytes": 850642040
+    },
+    {
+      "name": "ood_test3_drift_n14_eta005_seg3",
+      "path": "ood_test3/hd32_drift/recording_n14_eta005_seg3.h5",
+      "condition": "drift",
+      "bytes": 850637608
+    },
+    {
+      "name": "ood_test3_drift_n14_eta010",
+      "path": "ood_test3/hd32_drift/recording_n14_eta010.h5",
+      "condition": "drift",
+      "bytes": 850628016
+    },
+    {
+      "name": "ood_test3_drift_n14_eta010_seg2",
+      "path": "ood_test3/hd32_drift/recording_n14_eta010_seg2.h5",
+      "condition": "drift",
+      "bytes": 850641960
+    },
+    {
+      "name": "ood_test3_drift_n14_eta010_seg3",
+      "path": "ood_test3/hd32_drift/recording_n14_eta010_seg3.h5",
+      "condition": "drift",
+      "bytes": 850633656
+    },
+    {
+      "name": "ood_test3_drift_n14_eta015",
+      "path": "ood_test3/hd32_drift/recording_n14_eta015.h5",
+      "condition": "drift",
+      "bytes": 850628096
+    },
+    {
+      "name": "ood_test3_drift_n14_eta015_seg2",
+      "path": "ood_test3/hd32_drift/recording_n14_eta015_seg2.h5",
+      "condition": "drift",
+      "bytes": 850651968
+    },
+    {
+      "name": "ood_test3_drift_n14_eta015_seg3",
+      "path": "ood_test3/hd32_drift/recording_n14_eta015_seg3.h5",
+      "condition": "drift",
+      "bytes": 850637272
+    },
+    {
+      "name": "ood_test3_drift_n14_eta020",
+      "path": "ood_test3/hd32_drift/recording_n14_eta020.h5",
+      "condition": "drift",
+      "bytes": 850627400
+    },
+    {
+      "name": "ood_test3_drift_n14_eta020_seg2",
+      "path": "ood_test3/hd32_drift/recording_n14_eta020_seg2.h5",
+      "condition": "drift",
+      "bytes": 850633000
+    },
+    {
+      "name": "ood_test3_drift_n14_eta020_seg3",
+      "path": "ood_test3/hd32_drift/recording_n14_eta020_seg3.h5",
+      "condition": "drift",
+      "bytes": 850639208
+    },
+    {
+      "name": "ood_test3_drift_n15_eta005",
+      "path": "ood_test3/hd32_drift/recording_n15_eta005.h5",
+      "condition": "drift",
+      "bytes": 880284072
+    },
+    {
+      "name": "ood_test3_drift_n15_eta005_seg2",
+      "path": "ood_test3/hd32_drift/recording_n15_eta005_seg2.h5",
+      "condition": "drift",
+      "bytes": 880296664
+    },
+    {
+      "name": "ood_test3_drift_n15_eta005_seg3",
+      "path": "ood_test3/hd32_drift/recording_n15_eta005_seg3.h5",
+      "condition": "drift",
+      "bytes": 880308224
+    },
+    {
+      "name": "ood_test3_drift_n15_eta010",
+      "path": "ood_test3/hd32_drift/recording_n15_eta010.h5",
+      "condition": "drift",
+      "bytes": 880299000
+    },
+    {
+      "name": "ood_test3_drift_n15_eta010_seg2",
+      "path": "ood_test3/hd32_drift/recording_n15_eta010_seg2.h5",
+      "condition": "drift",
+      "bytes": 880303344
+    },
+    {
+      "name": "ood_test3_drift_n15_eta010_seg3",
+      "path": "ood_test3/hd32_drift/recording_n15_eta010_seg3.h5",
+      "condition": "drift",
+      "bytes": 880310808
+    },
+    {
+      "name": "ood_test3_drift_n15_eta015",
+      "path": "ood_test3/hd32_drift/recording_n15_eta015.h5",
+      "condition": "drift",
+      "bytes": 880303104
+    },
+    {
+      "name": "ood_test3_drift_n15_eta015_seg2",
+      "path": "ood_test3/hd32_drift/recording_n15_eta015_seg2.h5",
+      "condition": "drift",
+      "bytes": 880285888
+    },
+    {
+      "name": "ood_test3_drift_n15_eta015_seg3",
+      "path": "ood_test3/hd32_drift/recording_n15_eta015_seg3.h5",
+      "condition": "drift",
+      "bytes": 880302920
+    },
+    {
+      "name": "ood_test3_drift_n15_eta020",
+      "path": "ood_test3/hd32_drift/recording_n15_eta020.h5",
+      "condition": "drift",
+      "bytes": 880295056
+    },
+    {
+      "name": "ood_test3_drift_n15_eta020_seg2",
+      "path": "ood_test3/hd32_drift/recording_n15_eta020_seg2.h5",
+      "condition": "drift",
+      "bytes": 880289680
+    },
+    {
+      "name": "ood_test3_drift_n15_eta020_seg3",
+      "path": "ood_test3/hd32_drift/recording_n15_eta020_seg3.h5",
+      "condition": "drift",
+      "bytes": 880277144
+    },
+    {
+      "name": "ood_test3_drift_n16_eta005",
+      "path": "ood_test3/hd32_drift/recording_n16_eta005.h5",
+      "condition": "drift",
+      "bytes": 909950656
+    },
+    {
+      "name": "ood_test3_drift_n16_eta005_seg2",
+      "path": "ood_test3/hd32_drift/recording_n16_eta005_seg2.h5",
+      "condition": "drift",
+      "bytes": 909948432
+    },
+    {
+      "name": "ood_test3_drift_n16_eta005_seg3",
+      "path": "ood_test3/hd32_drift/recording_n16_eta005_seg3.h5",
+      "condition": "drift",
+      "bytes": 909955816
+    },
+    {
+      "name": "ood_test3_drift_n16_eta010",
+      "path": "ood_test3/hd32_drift/recording_n16_eta010.h5",
+      "condition": "drift",
+      "bytes": 909952544
+    },
+    {
+      "name": "ood_test3_drift_n16_eta010_seg2",
+      "path": "ood_test3/hd32_drift/recording_n16_eta010_seg2.h5",
+      "condition": "drift",
+      "bytes": 909947472
+    },
+    {
+      "name": "ood_test3_drift_n16_eta010_seg3",
+      "path": "ood_test3/hd32_drift/recording_n16_eta010_seg3.h5",
+      "condition": "drift",
+      "bytes": 909945888
+    },
+    {
+      "name": "ood_test3_drift_n16_eta015",
+      "path": "ood_test3/hd32_drift/recording_n16_eta015.h5",
+      "condition": "drift",
+      "bytes": 909938736
+    },
+    {
+      "name": "ood_test3_drift_n16_eta015_seg2",
+      "path": "ood_test3/hd32_drift/recording_n16_eta015_seg2.h5",
+      "condition": "drift",
+      "bytes": 909953096
+    },
+    {
+      "name": "ood_test3_drift_n16_eta015_seg3",
+      "path": "ood_test3/hd32_drift/recording_n16_eta015_seg3.h5",
+      "condition": "drift",
+      "bytes": 909949440
+    },
+    {
+      "name": "ood_test3_drift_n16_eta020",
+      "path": "ood_test3/hd32_drift/recording_n16_eta020.h5",
+      "condition": "drift",
+      "bytes": 909952448
+    },
+    {
+      "name": "ood_test3_drift_n16_eta020_seg2",
+      "path": "ood_test3/hd32_drift/recording_n16_eta020_seg2.h5",
+      "condition": "drift",
+      "bytes": 909950840
+    },
+    {
+      "name": "ood_test3_drift_n16_eta020_seg3",
+      "path": "ood_test3/hd32_drift/recording_n16_eta020_seg3.h5",
+      "condition": "drift",
+      "bytes": 909948096
+    },
+    {
+      "name": "ood_test3_drift_n17_eta005",
+      "path": "ood_test3/hd32_drift/recording_n17_eta005.h5",
+      "condition": "drift",
+      "bytes": 939599656
+    },
+    {
+      "name": "ood_test3_drift_n17_eta005_seg2",
+      "path": "ood_test3/hd32_drift/recording_n17_eta005_seg2.h5",
+      "condition": "drift",
+      "bytes": 939603104
+    },
+    {
+      "name": "ood_test3_drift_n17_eta005_seg3",
+      "path": "ood_test3/hd32_drift/recording_n17_eta005_seg3.h5",
+      "condition": "drift",
+      "bytes": 939584288
+    },
+    {
+      "name": "ood_test3_drift_n17_eta010",
+      "path": "ood_test3/hd32_drift/recording_n17_eta010.h5",
+      "condition": "drift",
+      "bytes": 939603528
+    },
+    {
+      "name": "ood_test3_drift_n17_eta010_seg2",
+      "path": "ood_test3/hd32_drift/recording_n17_eta010_seg2.h5",
+      "condition": "drift",
+      "bytes": 939601520
+    },
+    {
+      "name": "ood_test3_drift_n17_eta010_seg3",
+      "path": "ood_test3/hd32_drift/recording_n17_eta010_seg3.h5",
+      "condition": "drift",
+      "bytes": 939609600
+    },
+    {
+      "name": "ood_test3_drift_n17_eta015",
+      "path": "ood_test3/hd32_drift/recording_n17_eta015.h5",
+      "condition": "drift",
+      "bytes": 939586944
+    },
+    {
+      "name": "ood_test3_drift_n17_eta015_seg2",
+      "path": "ood_test3/hd32_drift/recording_n17_eta015_seg2.h5",
+      "condition": "drift",
+      "bytes": 939604208
+    },
+    {
+      "name": "ood_test3_drift_n17_eta015_seg3",
+      "path": "ood_test3/hd32_drift/recording_n17_eta015_seg3.h5",
+      "condition": "drift",
+      "bytes": 939589096
+    },
+    {
+      "name": "ood_test3_drift_n17_eta020",
+      "path": "ood_test3/hd32_drift/recording_n17_eta020.h5",
+      "condition": "drift",
+      "bytes": 939617560
+    },
+    {
+      "name": "ood_test3_drift_n17_eta020_seg2",
+      "path": "ood_test3/hd32_drift/recording_n17_eta020_seg2.h5",
+      "condition": "drift",
+      "bytes": 939619464
+    },
+    {
+      "name": "ood_test3_drift_n17_eta020_seg3",
+      "path": "ood_test3/hd32_drift/recording_n17_eta020_seg3.h5",
+      "condition": "drift",
+      "bytes": 939593272
+    },
+    {
+      "name": "ood_test3_drift_n18_eta005",
+      "path": "ood_test3/hd32_drift/recording_n18_eta005.h5",
+      "condition": "drift",
+      "bytes": 969267272
+    },
+    {
+      "name": "ood_test3_drift_n18_eta005_seg2",
+      "path": "ood_test3/hd32_drift/recording_n18_eta005_seg2.h5",
+      "condition": "drift",
+      "bytes": 969243608
+    },
+    {
+      "name": "ood_test3_drift_n18_eta005_seg3",
+      "path": "ood_test3/hd32_drift/recording_n18_eta005_seg3.h5",
+      "condition": "drift",
+      "bytes": 969257760
+    },
+    {
+      "name": "ood_test3_drift_n18_eta010",
+      "path": "ood_test3/hd32_drift/recording_n18_eta010.h5",
+      "condition": "drift",
+      "bytes": 969247608
+    },
+    {
+      "name": "ood_test3_drift_n18_eta010_seg2",
+      "path": "ood_test3/hd32_drift/recording_n18_eta010_seg2.h5",
+      "condition": "drift",
+      "bytes": 969257896
+    },
+    {
+      "name": "ood_test3_drift_n18_eta010_seg3",
+      "path": "ood_test3/hd32_drift/recording_n18_eta010_seg3.h5",
+      "condition": "drift",
+      "bytes": 969258160
+    },
+    {
+      "name": "ood_test3_drift_n18_eta015",
+      "path": "ood_test3/hd32_drift/recording_n18_eta015.h5",
+      "condition": "drift",
+      "bytes": 969265792
+    },
+    {
+      "name": "ood_test3_drift_n18_eta015_seg2",
+      "path": "ood_test3/hd32_drift/recording_n18_eta015_seg2.h5",
+      "condition": "drift",
+      "bytes": 969250728
+    },
+    {
+      "name": "ood_test3_drift_n18_eta015_seg3",
+      "path": "ood_test3/hd32_drift/recording_n18_eta015_seg3.h5",
+      "condition": "drift",
+      "bytes": 969260216
+    },
+    {
+      "name": "ood_test3_drift_n18_eta020",
+      "path": "ood_test3/hd32_drift/recording_n18_eta020.h5",
+      "condition": "drift",
+      "bytes": 969270616
+    },
+    {
+      "name": "ood_test3_drift_n18_eta020_seg2",
+      "path": "ood_test3/hd32_drift/recording_n18_eta020_seg2.h5",
+      "condition": "drift",
+      "bytes": 969249136
+    },
+    {
+      "name": "ood_test3_drift_n18_eta020_seg3",
+      "path": "ood_test3/hd32_drift/recording_n18_eta020_seg3.h5",
+      "condition": "drift",
+      "bytes": 969250168
+    },
+    {
+      "name": "ood_test3_drift_n19_eta005",
+      "path": "ood_test3/hd32_drift/recording_n19_eta005.h5",
+      "condition": "drift",
+      "bytes": 998902840
+    },
+    {
+      "name": "ood_test3_drift_n19_eta005_seg2",
+      "path": "ood_test3/hd32_drift/recording_n19_eta005_seg2.h5",
+      "condition": "drift",
+      "bytes": 998917184
+    },
+    {
+      "name": "ood_test3_drift_n19_eta005_seg3",
+      "path": "ood_test3/hd32_drift/recording_n19_eta005_seg3.h5",
+      "condition": "drift",
+      "bytes": 998908896
+    },
+    {
+      "name": "ood_test3_drift_n19_eta010",
+      "path": "ood_test3/hd32_drift/recording_n19_eta010.h5",
+      "condition": "drift",
+      "bytes": 998922416
+    },
+    {
+      "name": "ood_test3_drift_n19_eta010_seg2",
+      "path": "ood_test3/hd32_drift/recording_n19_eta010_seg2.h5",
+      "condition": "drift",
+      "bytes": 998917944
+    },
+    {
+      "name": "ood_test3_drift_n19_eta010_seg3",
+      "path": "ood_test3/hd32_drift/recording_n19_eta010_seg3.h5",
+      "condition": "drift",
+      "bytes": 998909864
+    },
+    {
+      "name": "ood_test3_drift_n19_eta015",
+      "path": "ood_test3/hd32_drift/recording_n19_eta015.h5",
+      "condition": "drift",
+      "bytes": 998907064
+    },
+    {
+      "name": "ood_test3_drift_n19_eta015_seg2",
+      "path": "ood_test3/hd32_drift/recording_n19_eta015_seg2.h5",
+      "condition": "drift",
+      "bytes": 998924232
+    },
+    {
+      "name": "ood_test3_drift_n19_eta015_seg3",
+      "path": "ood_test3/hd32_drift/recording_n19_eta015_seg3.h5",
+      "condition": "drift",
+      "bytes": 998919432
+    },
+    {
+      "name": "ood_test3_drift_n19_eta020",
+      "path": "ood_test3/hd32_drift/recording_n19_eta020.h5",
+      "condition": "drift",
+      "bytes": 998906808
+    },
+    {
+      "name": "ood_test3_drift_n19_eta020_seg2",
+      "path": "ood_test3/hd32_drift/recording_n19_eta020_seg2.h5",
+      "condition": "drift",
+      "bytes": 998915120
+    },
+    {
+      "name": "ood_test3_drift_n19_eta020_seg3",
+      "path": "ood_test3/hd32_drift/recording_n19_eta020_seg3.h5",
+      "condition": "drift",
+      "bytes": 998912600
+    },
+    {
+      "name": "ood_test3_drift_n20_eta005",
+      "path": "ood_test3/hd32_drift/recording_n20_eta005.h5",
+      "condition": "drift",
+      "bytes": 1028557728
+    },
+    {
+      "name": "ood_test3_drift_n20_eta005_seg2",
+      "path": "ood_test3/hd32_drift/recording_n20_eta005_seg2.h5",
+      "condition": "drift",
+      "bytes": 1028560752
+    },
+    {
+      "name": "ood_test3_drift_n20_eta005_seg3",
+      "path": "ood_test3/hd32_drift/recording_n20_eta005_seg3.h5",
+      "condition": "drift",
+      "bytes": 1028564488
+    },
+    {
+      "name": "ood_test3_drift_n20_eta010",
+      "path": "ood_test3/hd32_drift/recording_n20_eta010.h5",
+      "condition": "drift",
+      "bytes": 1028548008
+    },
+    {
+      "name": "ood_test3_drift_n20_eta010_seg2",
+      "path": "ood_test3/hd32_drift/recording_n20_eta010_seg2.h5",
+      "condition": "drift",
+      "bytes": 1028560760
+    },
+    {
+      "name": "ood_test3_drift_n20_eta010_seg3",
+      "path": "ood_test3/hd32_drift/recording_n20_eta010_seg3.h5",
+      "condition": "drift",
+      "bytes": 1028554376
+    },
+    {
+      "name": "ood_test3_drift_n20_eta015",
+      "path": "ood_test3/hd32_drift/recording_n20_eta015.h5",
+      "condition": "drift",
+      "bytes": 1028564480
+    },
+    {
+      "name": "ood_test3_drift_n20_eta015_seg2",
+      "path": "ood_test3/hd32_drift/recording_n20_eta015_seg2.h5",
+      "condition": "drift",
+      "bytes": 1028556856
+    },
+    {
+      "name": "ood_test3_drift_n20_eta015_seg3",
+      "path": "ood_test3/hd32_drift/recording_n20_eta015_seg3.h5",
+      "condition": "drift",
+      "bytes": 1028535176
+    },
+    {
+      "name": "ood_test3_drift_n20_eta020",
+      "path": "ood_test3/hd32_drift/recording_n20_eta020.h5",
+      "condition": "drift",
+      "bytes": 1028557512
+    },
+    {
+      "name": "ood_test3_drift_n20_eta020_seg2",
+      "path": "ood_test3/hd32_drift/recording_n20_eta020_seg2.h5",
+      "condition": "drift",
+      "bytes": 1028567072
+    },
+    {
+      "name": "ood_test3_drift_n20_eta020_seg3",
+      "path": "ood_test3/hd32_drift/recording_n20_eta020_seg3.h5",
+      "condition": "drift",
+      "bytes": 1028552000
+    },
+    {
+      "name": "ood_test3_drift_n5_eta005",
+      "path": "ood_test3/hd32_drift/recording_n5_eta005.h5",
+      "condition": "drift",
+      "bytes": 583762952
+    },
+    {
+      "name": "ood_test3_drift_n5_eta005_seg2",
+      "path": "ood_test3/hd32_drift/recording_n5_eta005_seg2.h5",
+      "condition": "drift",
+      "bytes": 583754728
+    },
+    {
+      "name": "ood_test3_drift_n5_eta005_seg3",
+      "path": "ood_test3/hd32_drift/recording_n5_eta005_seg3.h5",
+      "condition": "drift",
+      "bytes": 583758664
+    },
+    {
+      "name": "ood_test3_drift_n5_eta010",
+      "path": "ood_test3/hd32_drift/recording_n5_eta010.h5",
+      "condition": "drift",
+      "bytes": 583764400
+    },
+    {
+      "name": "ood_test3_drift_n5_eta010_seg2",
+      "path": "ood_test3/hd32_drift/recording_n5_eta010_seg2.h5",
+      "condition": "drift",
+      "bytes": 583758400
+    },
+    {
+      "name": "ood_test3_drift_n5_eta010_seg3",
+      "path": "ood_test3/hd32_drift/recording_n5_eta010_seg3.h5",
+      "condition": "drift",
+      "bytes": 583757880
+    },
+    {
+      "name": "ood_test3_drift_n5_eta015",
+      "path": "ood_test3/hd32_drift/recording_n5_eta015.h5",
+      "condition": "drift",
+      "bytes": 583758736
+    },
+    {
+      "name": "ood_test3_drift_n5_eta015_seg2",
+      "path": "ood_test3/hd32_drift/recording_n5_eta015_seg2.h5",
+      "condition": "drift",
+      "bytes": 583755800
+    },
+    {
+      "name": "ood_test3_drift_n5_eta015_seg3",
+      "path": "ood_test3/hd32_drift/recording_n5_eta015_seg3.h5",
+      "condition": "drift",
+      "bytes": 583761320
+    },
+    {
+      "name": "ood_test3_drift_n5_eta020",
+      "path": "ood_test3/hd32_drift/recording_n5_eta020.h5",
+      "condition": "drift",
+      "bytes": 583761976
+    },
+    {
+      "name": "ood_test3_drift_n5_eta020_seg2",
+      "path": "ood_test3/hd32_drift/recording_n5_eta020_seg2.h5",
+      "condition": "drift",
+      "bytes": 583758832
+    },
+    {
+      "name": "ood_test3_drift_n5_eta020_seg3",
+      "path": "ood_test3/hd32_drift/recording_n5_eta020_seg3.h5",
+      "condition": "drift",
+      "bytes": 583761608
+    },
+    {
+      "name": "ood_test3_drift_n6_eta005",
+      "path": "ood_test3/hd32_drift/recording_n6_eta005.h5",
+      "condition": "drift",
+      "bytes": 613412656
+    },
+    {
+      "name": "ood_test3_drift_n6_eta005_seg2",
+      "path": "ood_test3/hd32_drift/recording_n6_eta005_seg2.h5",
+      "condition": "drift",
+      "bytes": 613423736
+    },
+    {
+      "name": "ood_test3_drift_n6_eta005_seg3",
+      "path": "ood_test3/hd32_drift/recording_n6_eta005_seg3.h5",
+      "condition": "drift",
+      "bytes": 613416520
+    },
+    {
+      "name": "ood_test3_drift_n6_eta010",
+      "path": "ood_test3/hd32_drift/recording_n6_eta010.h5",
+      "condition": "drift",
+      "bytes": 613422192
+    },
+    {
+      "name": "ood_test3_drift_n6_eta010_seg2",
+      "path": "ood_test3/hd32_drift/recording_n6_eta010_seg2.h5",
+      "condition": "drift",
+      "bytes": 613418152
+    },
+    {
+      "name": "ood_test3_drift_n6_eta010_seg3",
+      "path": "ood_test3/hd32_drift/recording_n6_eta010_seg3.h5",
+      "condition": "drift",
+      "bytes": 613418576
+    },
+    {
+      "name": "ood_test3_drift_n6_eta015",
+      "path": "ood_test3/hd32_drift/recording_n6_eta015.h5",
+      "condition": "drift",
+      "bytes": 613414896
+    },
+    {
+      "name": "ood_test3_drift_n6_eta015_seg2",
+      "path": "ood_test3/hd32_drift/recording_n6_eta015_seg2.h5",
+      "condition": "drift",
+      "bytes": 613413272
+    },
+    {
+      "name": "ood_test3_drift_n6_eta015_seg3",
+      "path": "ood_test3/hd32_drift/recording_n6_eta015_seg3.h5",
+      "condition": "drift",
+      "bytes": 613414840
+    },
+    {
+      "name": "ood_test3_drift_n6_eta020",
+      "path": "ood_test3/hd32_drift/recording_n6_eta020.h5",
+      "condition": "drift",
+      "bytes": 613409584
+    },
+    {
+      "name": "ood_test3_drift_n6_eta020_seg2",
+      "path": "ood_test3/hd32_drift/recording_n6_eta020_seg2.h5",
+      "condition": "drift",
+      "bytes": 613424280
+    },
+    {
+      "name": "ood_test3_drift_n6_eta020_seg3",
+      "path": "ood_test3/hd32_drift/recording_n6_eta020_seg3.h5",
+      "condition": "drift",
+      "bytes": 613420744
+    },
+    {
+      "name": "ood_test3_drift_n7_eta005",
+      "path": "ood_test3/hd32_drift/recording_n7_eta005.h5",
+      "condition": "drift",
+      "bytes": 643063840
+    },
+    {
+      "name": "ood_test3_drift_n7_eta005_seg2",
+      "path": "ood_test3/hd32_drift/recording_n7_eta005_seg2.h5",
+      "condition": "drift",
+      "bytes": 643077976
+    },
+    {
+      "name": "ood_test3_drift_n7_eta005_seg3",
+      "path": "ood_test3/hd32_drift/recording_n7_eta005_seg3.h5",
+      "condition": "drift",
+      "bytes": 643078856
+    },
+    {
+      "name": "ood_test3_drift_n7_eta010",
+      "path": "ood_test3/hd32_drift/recording_n7_eta010.h5",
+      "condition": "drift",
+      "bytes": 643072992
+    },
+    {
+      "name": "ood_test3_drift_n7_eta010_seg2",
+      "path": "ood_test3/hd32_drift/recording_n7_eta010_seg2.h5",
+      "condition": "drift",
+      "bytes": 643075880
+    },
+    {
+      "name": "ood_test3_drift_n7_eta010_seg3",
+      "path": "ood_test3/hd32_drift/recording_n7_eta010_seg3.h5",
+      "condition": "drift",
+      "bytes": 643086192
+    },
+    {
+      "name": "ood_test3_drift_n7_eta015",
+      "path": "ood_test3/hd32_drift/recording_n7_eta015.h5",
+      "condition": "drift",
+      "bytes": 643071328
+    },
+    {
+      "name": "ood_test3_drift_n7_eta015_seg2",
+      "path": "ood_test3/hd32_drift/recording_n7_eta015_seg2.h5",
+      "condition": "drift",
+      "bytes": 643067120
+    },
+    {
+      "name": "ood_test3_drift_n7_eta015_seg3",
+      "path": "ood_test3/hd32_drift/recording_n7_eta015_seg3.h5",
+      "condition": "drift",
+      "bytes": 643077968
+    },
+    {
+      "name": "ood_test3_drift_n7_eta020",
+      "path": "ood_test3/hd32_drift/recording_n7_eta020.h5",
+      "condition": "drift",
+      "bytes": 643085504
+    },
+    {
+      "name": "ood_test3_drift_n7_eta020_seg2",
+      "path": "ood_test3/hd32_drift/recording_n7_eta020_seg2.h5",
+      "condition": "drift",
+      "bytes": 643075216
+    },
+    {
+      "name": "ood_test3_drift_n7_eta020_seg3",
+      "path": "ood_test3/hd32_drift/recording_n7_eta020_seg3.h5",
+      "condition": "drift",
+      "bytes": 643070104
+    },
+    {
+      "name": "ood_test3_drift_n8_eta005",
+      "path": "ood_test3/hd32_drift/recording_n8_eta005.h5",
+      "condition": "drift",
+      "bytes": 672716352
+    },
+    {
+      "name": "ood_test3_drift_n8_eta005_seg2",
+      "path": "ood_test3/hd32_drift/recording_n8_eta005_seg2.h5",
+      "condition": "drift",
+      "bytes": 672710592
+    },
+    {
+      "name": "ood_test3_drift_n8_eta005_seg3",
+      "path": "ood_test3/hd32_drift/recording_n8_eta005_seg3.h5",
+      "condition": "drift",
+      "bytes": 672717512
+    },
+    {
+      "name": "ood_test3_drift_n8_eta010",
+      "path": "ood_test3/hd32_drift/recording_n8_eta010.h5",
+      "condition": "drift",
+      "bytes": 672722816
+    },
+    {
+      "name": "ood_test3_drift_n8_eta010_seg2",
+      "path": "ood_test3/hd32_drift/recording_n8_eta010_seg2.h5",
+      "condition": "drift",
+      "bytes": 672719128
+    },
+    {
+      "name": "ood_test3_drift_n8_eta010_seg3",
+      "path": "ood_test3/hd32_drift/recording_n8_eta010_seg3.h5",
+      "condition": "drift",
+      "bytes": 672713624
+    },
+    {
+      "name": "ood_test3_drift_n8_eta015",
+      "path": "ood_test3/hd32_drift/recording_n8_eta015.h5",
+      "condition": "drift",
+      "bytes": 672715960
+    },
+    {
+      "name": "ood_test3_drift_n8_eta015_seg2",
+      "path": "ood_test3/hd32_drift/recording_n8_eta015_seg2.h5",
+      "condition": "drift",
+      "bytes": 672714424
+    },
+    {
+      "name": "ood_test3_drift_n8_eta015_seg3",
+      "path": "ood_test3/hd32_drift/recording_n8_eta015_seg3.h5",
+      "condition": "drift",
+      "bytes": 672711112
+    },
+    {
+      "name": "ood_test3_drift_n8_eta020",
+      "path": "ood_test3/hd32_drift/recording_n8_eta020.h5",
+      "condition": "drift",
+      "bytes": 672720536
+    },
+    {
+      "name": "ood_test3_drift_n8_eta020_seg2",
+      "path": "ood_test3/hd32_drift/recording_n8_eta020_seg2.h5",
+      "condition": "drift",
+      "bytes": 672723040
+    },
+    {
+      "name": "ood_test3_drift_n8_eta020_seg3",
+      "path": "ood_test3/hd32_drift/recording_n8_eta020_seg3.h5",
+      "condition": "drift",
+      "bytes": 672713016
+    },
+    {
+      "name": "ood_test3_drift_n9_eta005",
+      "path": "ood_test3/hd32_drift/recording_n9_eta005.h5",
+      "condition": "drift",
+      "bytes": 702382008
+    },
+    {
+      "name": "ood_test3_drift_n9_eta005_seg2",
+      "path": "ood_test3/hd32_drift/recording_n9_eta005_seg2.h5",
+      "condition": "drift",
+      "bytes": 702372072
+    },
+    {
+      "name": "ood_test3_drift_n9_eta005_seg3",
+      "path": "ood_test3/hd32_drift/recording_n9_eta005_seg3.h5",
+      "condition": "drift",
+      "bytes": 702375600
+    },
+    {
+      "name": "ood_test3_drift_n9_eta010",
+      "path": "ood_test3/hd32_drift/recording_n9_eta010.h5",
+      "condition": "drift",
+      "bytes": 702386168
+    },
+    {
+      "name": "ood_test3_drift_n9_eta010_seg2",
+      "path": "ood_test3/hd32_drift/recording_n9_eta010_seg2.h5",
+      "condition": "drift",
+      "bytes": 702383360
+    },
+    {
+      "name": "ood_test3_drift_n9_eta010_seg3",
+      "path": "ood_test3/hd32_drift/recording_n9_eta010_seg3.h5",
+      "condition": "drift",
+      "bytes": 702373704
+    },
+    {
+      "name": "ood_test3_drift_n9_eta015",
+      "path": "ood_test3/hd32_drift/recording_n9_eta015.h5",
+      "condition": "drift",
+      "bytes": 702374824
+    },
+    {
+      "name": "ood_test3_drift_n9_eta015_seg2",
+      "path": "ood_test3/hd32_drift/recording_n9_eta015_seg2.h5",
+      "condition": "drift",
+      "bytes": 702363568
+    },
+    {
+      "name": "ood_test3_drift_n9_eta015_seg3",
+      "path": "ood_test3/hd32_drift/recording_n9_eta015_seg3.h5",
+      "condition": "drift",
+      "bytes": 702373088
+    },
+    {
+      "name": "ood_test3_drift_n9_eta020",
+      "path": "ood_test3/hd32_drift/recording_n9_eta020.h5",
+      "condition": "drift",
+      "bytes": 702369736
+    },
+    {
+      "name": "ood_test3_drift_n9_eta020_seg2",
+      "path": "ood_test3/hd32_drift/recording_n9_eta020_seg2.h5",
+      "condition": "drift",
+      "bytes": 702374288
+    },
+    {
+      "name": "ood_test3_drift_n9_eta020_seg3",
+      "path": "ood_test3/hd32_drift/recording_n9_eta020_seg3.h5",
+      "condition": "drift",
+      "bytes": 702362392
+    },
+    {
+      "name": "ood_test3_static_n10_eta005",
+      "path": "ood_test3/hd32_static/recording_n10_eta005.h5",
+      "condition": "static",
+      "bytes": 569025792
+    },
+    {
+      "name": "ood_test3_static_n10_eta005_seg2",
+      "path": "ood_test3/hd32_static/recording_n10_eta005_seg2.h5",
+      "condition": "static",
+      "bytes": 569021424
+    },
+    {
+      "name": "ood_test3_static_n10_eta005_seg3",
+      "path": "ood_test3/hd32_static/recording_n10_eta005_seg3.h5",
+      "condition": "static",
+      "bytes": 569021768
+    },
+    {
+      "name": "ood_test3_static_n10_eta010",
+      "path": "ood_test3/hd32_static/recording_n10_eta010.h5",
+      "condition": "static",
+      "bytes": 569011472
+    },
+    {
+      "name": "ood_test3_static_n10_eta010_seg2",
+      "path": "ood_test3/hd32_static/recording_n10_eta010_seg2.h5",
+      "condition": "static",
+      "bytes": 569021112
+    },
+    {
+      "name": "ood_test3_static_n10_eta010_seg3",
+      "path": "ood_test3/hd32_static/recording_n10_eta010_seg3.h5",
+      "condition": "static",
+      "bytes": 569011440
+    },
+    {
+      "name": "ood_test3_static_n10_eta015",
+      "path": "ood_test3/hd32_static/recording_n10_eta015.h5",
+      "condition": "static",
+      "bytes": 569023984
+    },
+    {
+      "name": "ood_test3_static_n10_eta015_seg2",
+      "path": "ood_test3/hd32_static/recording_n10_eta015_seg2.h5",
+      "condition": "static",
+      "bytes": 569013888
+    },
+    {
+      "name": "ood_test3_static_n10_eta015_seg3",
+      "path": "ood_test3/hd32_static/recording_n10_eta015_seg3.h5",
+      "condition": "static",
+      "bytes": 569027008
+    },
+    {
+      "name": "ood_test3_static_n10_eta020",
+      "path": "ood_test3/hd32_static/recording_n10_eta020.h5",
+      "condition": "static",
+      "bytes": 569021752
+    },
+    {
+      "name": "ood_test3_static_n10_eta020_seg2",
+      "path": "ood_test3/hd32_static/recording_n10_eta020_seg2.h5",
+      "condition": "static",
+      "bytes": 569019856
+    },
+    {
+      "name": "ood_test3_static_n10_eta020_seg3",
+      "path": "ood_test3/hd32_static/recording_n10_eta020_seg3.h5",
+      "condition": "static",
+      "bytes": 569024744
+    },
+    {
+      "name": "ood_test3_static_n11_eta005",
+      "path": "ood_test3/hd32_static/recording_n11_eta005.h5",
+      "condition": "static",
+      "bytes": 582388992
+    },
+    {
+      "name": "ood_test3_static_n11_eta005_seg2",
+      "path": "ood_test3/hd32_static/recording_n11_eta005_seg2.h5",
+      "condition": "static",
+      "bytes": 582403856
+    },
+    {
+      "name": "ood_test3_static_n11_eta005_seg3",
+      "path": "ood_test3/hd32_static/recording_n11_eta005_seg3.h5",
+      "condition": "static",
+      "bytes": 582393768
+    },
+    {
+      "name": "ood_test3_static_n11_eta010",
+      "path": "ood_test3/hd32_static/recording_n11_eta010.h5",
+      "condition": "static",
+      "bytes": 582389896
+    },
+    {
+      "name": "ood_test3_static_n11_eta010_seg2",
+      "path": "ood_test3/hd32_static/recording_n11_eta010_seg2.h5",
+      "condition": "static",
+      "bytes": 582395512
+    },
+    {
+      "name": "ood_test3_static_n11_eta010_seg3",
+      "path": "ood_test3/hd32_static/recording_n11_eta010_seg3.h5",
+      "condition": "static",
+      "bytes": 582395136
+    },
+    {
+      "name": "ood_test3_static_n11_eta015",
+      "path": "ood_test3/hd32_static/recording_n11_eta015.h5",
+      "condition": "static",
+      "bytes": 582388600
+    },
+    {
+      "name": "ood_test3_static_n11_eta015_seg2",
+      "path": "ood_test3/hd32_static/recording_n11_eta015_seg2.h5",
+      "condition": "static",
+      "bytes": 582389000
+    },
+    {
+      "name": "ood_test3_static_n11_eta015_seg3",
+      "path": "ood_test3/hd32_static/recording_n11_eta015_seg3.h5",
+      "condition": "static",
+      "bytes": 582398296
+    },
+    {
+      "name": "ood_test3_static_n11_eta020",
+      "path": "ood_test3/hd32_static/recording_n11_eta020.h5",
+      "condition": "static",
+      "bytes": 582384696
+    },
+    {
+      "name": "ood_test3_static_n11_eta020_seg2",
+      "path": "ood_test3/hd32_static/recording_n11_eta020_seg2.h5",
+      "condition": "static",
+      "bytes": 582393416
+    },
+    {
+      "name": "ood_test3_static_n11_eta020_seg3",
+      "path": "ood_test3/hd32_static/recording_n11_eta020_seg3.h5",
+      "condition": "static",
+      "bytes": 582400688
+    },
+    {
+      "name": "ood_test3_static_n12_eta005",
+      "path": "ood_test3/hd32_static/recording_n12_eta005.h5",
+      "condition": "static",
+      "bytes": 595773408
+    },
+    {
+      "name": "ood_test3_static_n12_eta005_seg2",
+      "path": "ood_test3/hd32_static/recording_n12_eta005_seg2.h5",
+      "condition": "static",
+      "bytes": 595768848
+    },
+    {
+      "name": "ood_test3_static_n12_eta005_seg3",
+      "path": "ood_test3/hd32_static/recording_n12_eta005_seg3.h5",
+      "condition": "static",
+      "bytes": 595780752
+    },
+    {
+      "name": "ood_test3_static_n12_eta010",
+      "path": "ood_test3/hd32_static/recording_n12_eta010.h5",
+      "condition": "static",
+      "bytes": 595767344
+    },
+    {
+      "name": "ood_test3_static_n12_eta010_seg2",
+      "path": "ood_test3/hd32_static/recording_n12_eta010_seg2.h5",
+      "condition": "static",
+      "bytes": 595779344
+    },
+    {
+      "name": "ood_test3_static_n12_eta010_seg3",
+      "path": "ood_test3/hd32_static/recording_n12_eta010_seg3.h5",
+      "condition": "static",
+      "bytes": 595771000
+    },
+    {
+      "name": "ood_test3_static_n12_eta015",
+      "path": "ood_test3/hd32_static/recording_n12_eta015.h5",
+      "condition": "static",
+      "bytes": 595768296
+    },
+    {
+      "name": "ood_test3_static_n12_eta015_seg2",
+      "path": "ood_test3/hd32_static/recording_n12_eta015_seg2.h5",
+      "condition": "static",
+      "bytes": 595770984
+    },
+    {
+      "name": "ood_test3_static_n12_eta015_seg3",
+      "path": "ood_test3/hd32_static/recording_n12_eta015_seg3.h5",
+      "condition": "static",
+      "bytes": 595771160
+    },
+    {
+      "name": "ood_test3_static_n12_eta020",
+      "path": "ood_test3/hd32_static/recording_n12_eta020.h5",
+      "condition": "static",
+      "bytes": 595763680
+    },
+    {
+      "name": "ood_test3_static_n12_eta020_seg2",
+      "path": "ood_test3/hd32_static/recording_n12_eta020_seg2.h5",
+      "condition": "static",
+      "bytes": 595770064
+    },
+    {
+      "name": "ood_test3_static_n12_eta020_seg3",
+      "path": "ood_test3/hd32_static/recording_n12_eta020_seg3.h5",
+      "condition": "static",
+      "bytes": 595764848
+    },
+    {
+      "name": "ood_test3_static_n13_eta005",
+      "path": "ood_test3/hd32_static/recording_n13_eta005.h5",
+      "condition": "static",
+      "bytes": 609150920
+    },
+    {
+      "name": "ood_test3_static_n13_eta005_seg2",
+      "path": "ood_test3/hd32_static/recording_n13_eta005_seg2.h5",
+      "condition": "static",
+      "bytes": 609152016
+    },
+    {
+      "name": "ood_test3_static_n13_eta005_seg3",
+      "path": "ood_test3/hd32_static/recording_n13_eta005_seg3.h5",
+      "condition": "static",
+      "bytes": 609155320
+    },
+    {
+      "name": "ood_test3_static_n13_eta010",
+      "path": "ood_test3/hd32_static/recording_n13_eta010.h5",
+      "condition": "static",
+      "bytes": 609156720
+    },
+    {
+      "name": "ood_test3_static_n13_eta010_seg2",
+      "path": "ood_test3/hd32_static/recording_n13_eta010_seg2.h5",
+      "condition": "static",
+      "bytes": 609147448
+    },
+    {
+      "name": "ood_test3_static_n13_eta010_seg3",
+      "path": "ood_test3/hd32_static/recording_n13_eta010_seg3.h5",
+      "condition": "static",
+      "bytes": 609158848
+    },
+    {
+      "name": "ood_test3_static_n13_eta015",
+      "path": "ood_test3/hd32_static/recording_n13_eta015.h5",
+      "condition": "static",
+      "bytes": 609149504
+    },
+    {
+      "name": "ood_test3_static_n13_eta015_seg2",
+      "path": "ood_test3/hd32_static/recording_n13_eta015_seg2.h5",
+      "condition": "static",
+      "bytes": 609164856
+    },
+    {
+      "name": "ood_test3_static_n13_eta015_seg3",
+      "path": "ood_test3/hd32_static/recording_n13_eta015_seg3.h5",
+      "condition": "static",
+      "bytes": 609156672
+    },
+    {
+      "name": "ood_test3_static_n13_eta020",
+      "path": "ood_test3/hd32_static/recording_n13_eta020.h5",
+      "condition": "static",
+      "bytes": 609166216
+    },
+    {
+      "name": "ood_test3_static_n13_eta020_seg2",
+      "path": "ood_test3/hd32_static/recording_n13_eta020_seg2.h5",
+      "condition": "static",
+      "bytes": 609147392
+    },
+    {
+      "name": "ood_test3_static_n13_eta020_seg3",
+      "path": "ood_test3/hd32_static/recording_n13_eta020_seg3.h5",
+      "condition": "static",
+      "bytes": 609145304
+    },
+    {
+      "name": "ood_test3_static_n14_eta005",
+      "path": "ood_test3/hd32_static/recording_n14_eta005.h5",
+      "condition": "static",
+      "bytes": 622529184
+    },
+    {
+      "name": "ood_test3_static_n14_eta005_seg2",
+      "path": "ood_test3/hd32_static/recording_n14_eta005_seg2.h5",
+      "condition": "static",
+      "bytes": 622520992
+    },
+    {
+      "name": "ood_test3_static_n14_eta005_seg3",
+      "path": "ood_test3/hd32_static/recording_n14_eta005_seg3.h5",
+      "condition": "static",
+      "bytes": 622531264
+    },
+    {
+      "name": "ood_test3_static_n14_eta010",
+      "path": "ood_test3/hd32_static/recording_n14_eta010.h5",
+      "condition": "static",
+      "bytes": 622525008
+    },
+    {
+      "name": "ood_test3_static_n14_eta010_seg2",
+      "path": "ood_test3/hd32_static/recording_n14_eta010_seg2.h5",
+      "condition": "static",
+      "bytes": 622518240
+    },
+    {
+      "name": "ood_test3_static_n14_eta010_seg3",
+      "path": "ood_test3/hd32_static/recording_n14_eta010_seg3.h5",
+      "condition": "static",
+      "bytes": 622515192
+    },
+    {
+      "name": "ood_test3_static_n14_eta015",
+      "path": "ood_test3/hd32_static/recording_n14_eta015.h5",
+      "condition": "static",
+      "bytes": 622522264
+    },
+    {
+      "name": "ood_test3_static_n14_eta015_seg2",
+      "path": "ood_test3/hd32_static/recording_n14_eta015_seg2.h5",
+      "condition": "static",
+      "bytes": 622521640
+    },
+    {
+      "name": "ood_test3_static_n14_eta015_seg3",
+      "path": "ood_test3/hd32_static/recording_n14_eta015_seg3.h5",
+      "condition": "static",
+      "bytes": 622532560
+    },
+    {
+      "name": "ood_test3_static_n14_eta020",
+      "path": "ood_test3/hd32_static/recording_n14_eta020.h5",
+      "condition": "static",
+      "bytes": 622532008
+    },
+    {
+      "name": "ood_test3_static_n14_eta020_seg2",
+      "path": "ood_test3/hd32_static/recording_n14_eta020_seg2.h5",
+      "condition": "static",
+      "bytes": 622525520
+    },
+    {
+      "name": "ood_test3_static_n14_eta020_seg3",
+      "path": "ood_test3/hd32_static/recording_n14_eta020_seg3.h5",
+      "condition": "static",
+      "bytes": 622519768
+    },
+    {
+      "name": "ood_test3_static_n15_eta005",
+      "path": "ood_test3/hd32_static/recording_n15_eta005.h5",
+      "condition": "static",
+      "bytes": 635906976
+    },
+    {
+      "name": "ood_test3_static_n15_eta005_seg2",
+      "path": "ood_test3/hd32_static/recording_n15_eta005_seg2.h5",
+      "condition": "static",
+      "bytes": 635909160
+    },
+    {
+      "name": "ood_test3_static_n15_eta005_seg3",
+      "path": "ood_test3/hd32_static/recording_n15_eta005_seg3.h5",
+      "condition": "static",
+      "bytes": 635905272
+    },
+    {
+      "name": "ood_test3_static_n15_eta010",
+      "path": "ood_test3/hd32_static/recording_n15_eta010.h5",
+      "condition": "static",
+      "bytes": 635907472
+    },
+    {
+      "name": "ood_test3_static_n15_eta010_seg2",
+      "path": "ood_test3/hd32_static/recording_n15_eta010_seg2.h5",
+      "condition": "static",
+      "bytes": 635907928
+    },
+    {
+      "name": "ood_test3_static_n15_eta010_seg3",
+      "path": "ood_test3/hd32_static/recording_n15_eta010_seg3.h5",
+      "condition": "static",
+      "bytes": 635910704
+    },
+    {
+      "name": "ood_test3_static_n15_eta015",
+      "path": "ood_test3/hd32_static/recording_n15_eta015.h5",
+      "condition": "static",
+      "bytes": 635873632
+    },
+    {
+      "name": "ood_test3_static_n15_eta015_seg2",
+      "path": "ood_test3/hd32_static/recording_n15_eta015_seg2.h5",
+      "condition": "static",
+      "bytes": 635902440
+    },
+    {
+      "name": "ood_test3_static_n15_eta015_seg3",
+      "path": "ood_test3/hd32_static/recording_n15_eta015_seg3.h5",
+      "condition": "static",
+      "bytes": 635913880
+    },
+    {
+      "name": "ood_test3_static_n15_eta020",
+      "path": "ood_test3/hd32_static/recording_n15_eta020.h5",
+      "condition": "static",
+      "bytes": 635907056
+    },
+    {
+      "name": "ood_test3_static_n15_eta020_seg2",
+      "path": "ood_test3/hd32_static/recording_n15_eta020_seg2.h5",
+      "condition": "static",
+      "bytes": 635899680
+    },
+    {
+      "name": "ood_test3_static_n15_eta020_seg3",
+      "path": "ood_test3/hd32_static/recording_n15_eta020_seg3.h5",
+      "condition": "static",
+      "bytes": 635899088
+    },
+    {
+      "name": "ood_test3_static_n16_eta005",
+      "path": "ood_test3/hd32_static/recording_n16_eta005.h5",
+      "condition": "static",
+      "bytes": 649287016
+    },
+    {
+      "name": "ood_test3_static_n16_eta005_seg2",
+      "path": "ood_test3/hd32_static/recording_n16_eta005_seg2.h5",
+      "condition": "static",
+      "bytes": 649291776
+    },
+    {
+      "name": "ood_test3_static_n16_eta005_seg3",
+      "path": "ood_test3/hd32_static/recording_n16_eta005_seg3.h5",
+      "condition": "static",
+      "bytes": 649276704
+    },
+    {
+      "name": "ood_test3_static_n16_eta010",
+      "path": "ood_test3/hd32_static/recording_n16_eta010.h5",
+      "condition": "static",
+      "bytes": 649279008
+    },
+    {
+      "name": "ood_test3_static_n16_eta010_seg2",
+      "path": "ood_test3/hd32_static/recording_n16_eta010_seg2.h5",
+      "condition": "static",
+      "bytes": 649279760
+    },
+    {
+      "name": "ood_test3_static_n16_eta010_seg3",
+      "path": "ood_test3/hd32_static/recording_n16_eta010_seg3.h5",
+      "condition": "static",
+      "bytes": 649287656
+    },
+    {
+      "name": "ood_test3_static_n16_eta015",
+      "path": "ood_test3/hd32_static/recording_n16_eta015.h5",
+      "condition": "static",
+      "bytes": 649283400
+    },
+    {
+      "name": "ood_test3_static_n16_eta015_seg2",
+      "path": "ood_test3/hd32_static/recording_n16_eta015_seg2.h5",
+      "condition": "static",
+      "bytes": 649278968
+    },
+    {
+      "name": "ood_test3_static_n16_eta015_seg3",
+      "path": "ood_test3/hd32_static/recording_n16_eta015_seg3.h5",
+      "condition": "static",
+      "bytes": 649286120
+    },
+    {
+      "name": "ood_test3_static_n16_eta020",
+      "path": "ood_test3/hd32_static/recording_n16_eta020.h5",
+      "condition": "static",
+      "bytes": 649276520
+    },
+    {
+      "name": "ood_test3_static_n16_eta020_seg2",
+      "path": "ood_test3/hd32_static/recording_n16_eta020_seg2.h5",
+      "condition": "static",
+      "bytes": 649273376
+    },
+    {
+      "name": "ood_test3_static_n16_eta020_seg3",
+      "path": "ood_test3/hd32_static/recording_n16_eta020_seg3.h5",
+      "condition": "static",
+      "bytes": 649286432
+    },
+    {
+      "name": "ood_test3_static_n17_eta005",
+      "path": "ood_test3/hd32_static/recording_n17_eta005.h5",
+      "condition": "static",
+      "bytes": 662663768
+    },
+    {
+      "name": "ood_test3_static_n17_eta005_seg2",
+      "path": "ood_test3/hd32_static/recording_n17_eta005_seg2.h5",
+      "condition": "static",
+      "bytes": 662666448
+    },
+    {
+      "name": "ood_test3_static_n17_eta005_seg3",
+      "path": "ood_test3/hd32_static/recording_n17_eta005_seg3.h5",
+      "condition": "static",
+      "bytes": 662655160
+    },
+    {
+      "name": "ood_test3_static_n17_eta010",
+      "path": "ood_test3/hd32_static/recording_n17_eta010.h5",
+      "condition": "static",
+      "bytes": 662663176
+    },
+    {
+      "name": "ood_test3_static_n17_eta010_seg2",
+      "path": "ood_test3/hd32_static/recording_n17_eta010_seg2.h5",
+      "condition": "static",
+      "bytes": 662654680
+    },
+    {
+      "name": "ood_test3_static_n17_eta010_seg3",
+      "path": "ood_test3/hd32_static/recording_n17_eta010_seg3.h5",
+      "condition": "static",
+      "bytes": 662645032
+    },
+    {
+      "name": "ood_test3_static_n17_eta015",
+      "path": "ood_test3/hd32_static/recording_n17_eta015.h5",
+      "condition": "static",
+      "bytes": 662649616
+    },
+    {
+      "name": "ood_test3_static_n17_eta015_seg2",
+      "path": "ood_test3/hd32_static/recording_n17_eta015_seg2.h5",
+      "condition": "static",
+      "bytes": 662652280
+    },
+    {
+      "name": "ood_test3_static_n17_eta015_seg3",
+      "path": "ood_test3/hd32_static/recording_n17_eta015_seg3.h5",
+      "condition": "static",
+      "bytes": 662657696
+    },
+    {
+      "name": "ood_test3_static_n17_eta020",
+      "path": "ood_test3/hd32_static/recording_n17_eta020.h5",
+      "condition": "static",
+      "bytes": 662642456
+    },
+    {
+      "name": "ood_test3_static_n17_eta020_seg2",
+      "path": "ood_test3/hd32_static/recording_n17_eta020_seg2.h5",
+      "condition": "static",
+      "bytes": 662658304
+    },
+    {
+      "name": "ood_test3_static_n17_eta020_seg3",
+      "path": "ood_test3/hd32_static/recording_n17_eta020_seg3.h5",
+      "condition": "static",
+      "bytes": 662658472
+    },
+    {
+      "name": "ood_test3_static_n18_eta005",
+      "path": "ood_test3/hd32_static/recording_n18_eta005.h5",
+      "condition": "static",
+      "bytes": 676031768
+    },
+    {
+      "name": "ood_test3_static_n18_eta005_seg2",
+      "path": "ood_test3/hd32_static/recording_n18_eta005_seg2.h5",
+      "condition": "static",
+      "bytes": 676032576
+    },
+    {
+      "name": "ood_test3_static_n18_eta005_seg3",
+      "path": "ood_test3/hd32_static/recording_n18_eta005_seg3.h5",
+      "condition": "static",
+      "bytes": 676017960
+    },
+    {
+      "name": "ood_test3_static_n18_eta010",
+      "path": "ood_test3/hd32_static/recording_n18_eta010.h5",
+      "condition": "static",
+      "bytes": 676035264
+    },
+    {
+      "name": "ood_test3_static_n18_eta010_seg2",
+      "path": "ood_test3/hd32_static/recording_n18_eta010_seg2.h5",
+      "condition": "static",
+      "bytes": 676039048
+    },
+    {
+      "name": "ood_test3_static_n18_eta010_seg3",
+      "path": "ood_test3/hd32_static/recording_n18_eta010_seg3.h5",
+      "condition": "static",
+      "bytes": 676034480
+    },
+    {
+      "name": "ood_test3_static_n18_eta015",
+      "path": "ood_test3/hd32_static/recording_n18_eta015.h5",
+      "condition": "static",
+      "bytes": 676038752
+    },
+    {
+      "name": "ood_test3_static_n18_eta015_seg2",
+      "path": "ood_test3/hd32_static/recording_n18_eta015_seg2.h5",
+      "condition": "static",
+      "bytes": 676035544
+    },
+    {
+      "name": "ood_test3_static_n18_eta015_seg3",
+      "path": "ood_test3/hd32_static/recording_n18_eta015_seg3.h5",
+      "condition": "static",
+      "bytes": 676037816
+    },
+    {
+      "name": "ood_test3_static_n18_eta020",
+      "path": "ood_test3/hd32_static/recording_n18_eta020.h5",
+      "condition": "static",
+      "bytes": 676031960
+    },
+    {
+      "name": "ood_test3_static_n18_eta020_seg2",
+      "path": "ood_test3/hd32_static/recording_n18_eta020_seg2.h5",
+      "condition": "static",
+      "bytes": 676037800
+    },
+    {
+      "name": "ood_test3_static_n18_eta020_seg3",
+      "path": "ood_test3/hd32_static/recording_n18_eta020_seg3.h5",
+      "condition": "static",
+      "bytes": 676041976
+    },
+    {
+      "name": "ood_test3_static_n19_eta005",
+      "path": "ood_test3/hd32_static/recording_n19_eta005.h5",
+      "condition": "static",
+      "bytes": 689414384
+    },
+    {
+      "name": "ood_test3_static_n19_eta005_seg2",
+      "path": "ood_test3/hd32_static/recording_n19_eta005_seg2.h5",
+      "condition": "static",
+      "bytes": 689421168
+    },
+    {
+      "name": "ood_test3_static_n19_eta005_seg3",
+      "path": "ood_test3/hd32_static/recording_n19_eta005_seg3.h5",
+      "condition": "static",
+      "bytes": 689423216
+    },
+    {
+      "name": "ood_test3_static_n19_eta010",
+      "path": "ood_test3/hd32_static/recording_n19_eta010.h5",
+      "condition": "static",
+      "bytes": 689405216
+    },
+    {
+      "name": "ood_test3_static_n19_eta010_seg2",
+      "path": "ood_test3/hd32_static/recording_n19_eta010_seg2.h5",
+      "condition": "static",
+      "bytes": 689409632
+    },
+    {
+      "name": "ood_test3_static_n19_eta010_seg3",
+      "path": "ood_test3/hd32_static/recording_n19_eta010_seg3.h5",
+      "condition": "static",
+      "bytes": 689402560
+    },
+    {
+      "name": "ood_test3_static_n19_eta015",
+      "path": "ood_test3/hd32_static/recording_n19_eta015.h5",
+      "condition": "static",
+      "bytes": 689418448
+    },
+    {
+      "name": "ood_test3_static_n19_eta015_seg2",
+      "path": "ood_test3/hd32_static/recording_n19_eta015_seg2.h5",
+      "condition": "static",
+      "bytes": 689416848
+    },
+    {
+      "name": "ood_test3_static_n19_eta015_seg3",
+      "path": "ood_test3/hd32_static/recording_n19_eta015_seg3.h5",
+      "condition": "static",
+      "bytes": 689425600
+    },
+    {
+      "name": "ood_test3_static_n19_eta020",
+      "path": "ood_test3/hd32_static/recording_n19_eta020.h5",
+      "condition": "static",
+      "bytes": 689425312
+    },
+    {
+      "name": "ood_test3_static_n19_eta020_seg2",
+      "path": "ood_test3/hd32_static/recording_n19_eta020_seg2.h5",
+      "condition": "static",
+      "bytes": 689402792
+    },
+    {
+      "name": "ood_test3_static_n19_eta020_seg3",
+      "path": "ood_test3/hd32_static/recording_n19_eta020_seg3.h5",
+      "condition": "static",
+      "bytes": 689412176
+    },
+    {
+      "name": "ood_test3_static_n20_eta005",
+      "path": "ood_test3/hd32_static/recording_n20_eta005.h5",
+      "condition": "static",
+      "bytes": 702792480
+    },
+    {
+      "name": "ood_test3_static_n20_eta005_seg2",
+      "path": "ood_test3/hd32_static/recording_n20_eta005_seg2.h5",
+      "condition": "static",
+      "bytes": 702797176
+    },
+    {
+      "name": "ood_test3_static_n20_eta005_seg3",
+      "path": "ood_test3/hd32_static/recording_n20_eta005_seg3.h5",
+      "condition": "static",
+      "bytes": 702786440
+    },
+    {
+      "name": "ood_test3_static_n20_eta010",
+      "path": "ood_test3/hd32_static/recording_n20_eta010.h5",
+      "condition": "static",
+      "bytes": 702791760
+    },
+    {
+      "name": "ood_test3_static_n20_eta010_seg2",
+      "path": "ood_test3/hd32_static/recording_n20_eta010_seg2.h5",
+      "condition": "static",
+      "bytes": 702786640
+    },
+    {
+      "name": "ood_test3_static_n20_eta010_seg3",
+      "path": "ood_test3/hd32_static/recording_n20_eta010_seg3.h5",
+      "condition": "static",
+      "bytes": 702783744
+    },
+    {
+      "name": "ood_test3_static_n20_eta015",
+      "path": "ood_test3/hd32_static/recording_n20_eta015.h5",
+      "condition": "static",
+      "bytes": 702799552
+    },
+    {
+      "name": "ood_test3_static_n20_eta015_seg2",
+      "path": "ood_test3/hd32_static/recording_n20_eta015_seg2.h5",
+      "condition": "static",
+      "bytes": 702786632
+    },
+    {
+      "name": "ood_test3_static_n20_eta015_seg3",
+      "path": "ood_test3/hd32_static/recording_n20_eta015_seg3.h5",
+      "condition": "static",
+      "bytes": 702779944
+    },
+    {
+      "name": "ood_test3_static_n20_eta020",
+      "path": "ood_test3/hd32_static/recording_n20_eta020.h5",
+      "condition": "static",
+      "bytes": 702808192
+    },
+    {
+      "name": "ood_test3_static_n20_eta020_seg2",
+      "path": "ood_test3/hd32_static/recording_n20_eta020_seg2.h5",
+      "condition": "static",
+      "bytes": 702801032
+    },
+    {
+      "name": "ood_test3_static_n20_eta020_seg3",
+      "path": "ood_test3/hd32_static/recording_n20_eta020_seg3.h5",
+      "condition": "static",
+      "bytes": 702801928
+    },
+    {
+      "name": "ood_test3_static_n5_eta005",
+      "path": "ood_test3/hd32_static/recording_n5_eta005.h5",
+      "condition": "static",
+      "bytes": 502138088
+    },
+    {
+      "name": "ood_test3_static_n5_eta005_seg2",
+      "path": "ood_test3/hd32_static/recording_n5_eta005_seg2.h5",
+      "condition": "static",
+      "bytes": 502135992
+    },
+    {
+      "name": "ood_test3_static_n5_eta005_seg3",
+      "path": "ood_test3/hd32_static/recording_n5_eta005_seg3.h5",
+      "condition": "static",
+      "bytes": 502141256
+    },
+    {
+      "name": "ood_test3_static_n5_eta010",
+      "path": "ood_test3/hd32_static/recording_n5_eta010.h5",
+      "condition": "static",
+      "bytes": 502132376
+    },
+    {
+      "name": "ood_test3_static_n5_eta010_seg2",
+      "path": "ood_test3/hd32_static/recording_n5_eta010_seg2.h5",
+      "condition": "static",
+      "bytes": 502139280
+    },
+    {
+      "name": "ood_test3_static_n5_eta010_seg3",
+      "path": "ood_test3/hd32_static/recording_n5_eta010_seg3.h5",
+      "condition": "static",
+      "bytes": 502130400
+    },
+    {
+      "name": "ood_test3_static_n5_eta015",
+      "path": "ood_test3/hd32_static/recording_n5_eta015.h5",
+      "condition": "static",
+      "bytes": 502134808
+    },
+    {
+      "name": "ood_test3_static_n5_eta015_seg2",
+      "path": "ood_test3/hd32_static/recording_n5_eta015_seg2.h5",
+      "condition": "static",
+      "bytes": 502133640
+    },
+    {
+      "name": "ood_test3_static_n5_eta015_seg3",
+      "path": "ood_test3/hd32_static/recording_n5_eta015_seg3.h5",
+      "condition": "static",
+      "bytes": 502133424
+    },
+    {
+      "name": "ood_test3_static_n5_eta020",
+      "path": "ood_test3/hd32_static/recording_n5_eta020.h5",
+      "condition": "static",
+      "bytes": 502140216
+    },
+    {
+      "name": "ood_test3_static_n5_eta020_seg2",
+      "path": "ood_test3/hd32_static/recording_n5_eta020_seg2.h5",
+      "condition": "static",
+      "bytes": 502141184
+    },
+    {
+      "name": "ood_test3_static_n5_eta020_seg3",
+      "path": "ood_test3/hd32_static/recording_n5_eta020_seg3.h5",
+      "condition": "static",
+      "bytes": 502131464
+    },
+    {
+      "name": "ood_test3_static_n6_eta005",
+      "path": "ood_test3/hd32_static/recording_n6_eta005.h5",
+      "condition": "static",
+      "bytes": 515509352
+    },
+    {
+      "name": "ood_test3_static_n6_eta005_seg2",
+      "path": "ood_test3/hd32_static/recording_n6_eta005_seg2.h5",
+      "condition": "static",
+      "bytes": 515515008
+    },
+    {
+      "name": "ood_test3_static_n6_eta005_seg3",
+      "path": "ood_test3/hd32_static/recording_n6_eta005_seg3.h5",
+      "condition": "static",
+      "bytes": 515525136
+    },
+    {
+      "name": "ood_test3_static_n6_eta010",
+      "path": "ood_test3/hd32_static/recording_n6_eta010.h5",
+      "condition": "static",
+      "bytes": 515513392
+    },
+    {
+      "name": "ood_test3_static_n6_eta010_seg2",
+      "path": "ood_test3/hd32_static/recording_n6_eta010_seg2.h5",
+      "condition": "static",
+      "bytes": 515510688
+    },
+    {
+      "name": "ood_test3_static_n6_eta010_seg3",
+      "path": "ood_test3/hd32_static/recording_n6_eta010_seg3.h5",
+      "condition": "static",
+      "bytes": 515516160
+    },
+    {
+      "name": "ood_test3_static_n6_eta015",
+      "path": "ood_test3/hd32_static/recording_n6_eta015.h5",
+      "condition": "static",
+      "bytes": 515518664
+    },
+    {
+      "name": "ood_test3_static_n6_eta015_seg2",
+      "path": "ood_test3/hd32_static/recording_n6_eta015_seg2.h5",
+      "condition": "static",
+      "bytes": 515517480
+    },
+    {
+      "name": "ood_test3_static_n6_eta015_seg3",
+      "path": "ood_test3/hd32_static/recording_n6_eta015_seg3.h5",
+      "condition": "static",
+      "bytes": 515509856
+    },
+    {
+      "name": "ood_test3_static_n6_eta020",
+      "path": "ood_test3/hd32_static/recording_n6_eta020.h5",
+      "condition": "static",
+      "bytes": 515512632
+    },
+    {
+      "name": "ood_test3_static_n6_eta020_seg2",
+      "path": "ood_test3/hd32_static/recording_n6_eta020_seg2.h5",
+      "condition": "static",
+      "bytes": 515511056
+    },
+    {
+      "name": "ood_test3_static_n6_eta020_seg3",
+      "path": "ood_test3/hd32_static/recording_n6_eta020_seg3.h5",
+      "condition": "static",
+      "bytes": 515509032
+    },
+    {
+      "name": "ood_test3_static_n7_eta005",
+      "path": "ood_test3/hd32_static/recording_n7_eta005.h5",
+      "condition": "static",
+      "bytes": 528890848
+    },
+    {
+      "name": "ood_test3_static_n7_eta005_seg2",
+      "path": "ood_test3/hd32_static/recording_n7_eta005_seg2.h5",
+      "condition": "static",
+      "bytes": 528891328
+    },
+    {
+      "name": "ood_test3_static_n7_eta005_seg3",
+      "path": "ood_test3/hd32_static/recording_n7_eta005_seg3.h5",
+      "condition": "static",
+      "bytes": 528888568
+    },
+    {
+      "name": "ood_test3_static_n7_eta010",
+      "path": "ood_test3/hd32_static/recording_n7_eta010.h5",
+      "condition": "static",
+      "bytes": 528896952
+    },
+    {
+      "name": "ood_test3_static_n7_eta010_seg2",
+      "path": "ood_test3/hd32_static/recording_n7_eta010_seg2.h5",
+      "condition": "static",
+      "bytes": 528895808
+    },
+    {
+      "name": "ood_test3_static_n7_eta010_seg3",
+      "path": "ood_test3/hd32_static/recording_n7_eta010_seg3.h5",
+      "condition": "static",
+      "bytes": 528888816
+    },
+    {
+      "name": "ood_test3_static_n7_eta015",
+      "path": "ood_test3/hd32_static/recording_n7_eta015.h5",
+      "condition": "static",
+      "bytes": 528882760
+    },
+    {
+      "name": "ood_test3_static_n7_eta015_seg2",
+      "path": "ood_test3/hd32_static/recording_n7_eta015_seg2.h5",
+      "condition": "static",
+      "bytes": 528904040
+    },
+    {
+      "name": "ood_test3_static_n7_eta015_seg3",
+      "path": "ood_test3/hd32_static/recording_n7_eta015_seg3.h5",
+      "condition": "static",
+      "bytes": 528890216
+    },
+    {
+      "name": "ood_test3_static_n7_eta020",
+      "path": "ood_test3/hd32_static/recording_n7_eta020.h5",
+      "condition": "static",
+      "bytes": 528897600
+    },
+    {
+      "name": "ood_test3_static_n7_eta020_seg2",
+      "path": "ood_test3/hd32_static/recording_n7_eta020_seg2.h5",
+      "condition": "static",
+      "bytes": 528894464
+    },
+    {
+      "name": "ood_test3_static_n7_eta020_seg3",
+      "path": "ood_test3/hd32_static/recording_n7_eta020_seg3.h5",
+      "condition": "static",
+      "bytes": 528897640
+    },
+    {
+      "name": "ood_test3_static_n8_eta005",
+      "path": "ood_test3/hd32_static/recording_n8_eta005.h5",
+      "condition": "static",
+      "bytes": 542264336
+    },
+    {
+      "name": "ood_test3_static_n8_eta005_seg2",
+      "path": "ood_test3/hd32_static/recording_n8_eta005_seg2.h5",
+      "condition": "static",
+      "bytes": 542271832
+    },
+    {
+      "name": "ood_test3_static_n8_eta005_seg3",
+      "path": "ood_test3/hd32_static/recording_n8_eta005_seg3.h5",
+      "condition": "static",
+      "bytes": 542251168
+    },
+    {
+      "name": "ood_test3_static_n8_eta010",
+      "path": "ood_test3/hd32_static/recording_n8_eta010.h5",
+      "condition": "static",
+      "bytes": 542256168
+    },
+    {
+      "name": "ood_test3_static_n8_eta010_seg2",
+      "path": "ood_test3/hd32_static/recording_n8_eta010_seg2.h5",
+      "condition": "static",
+      "bytes": 542268144
+    },
+    {
+      "name": "ood_test3_static_n8_eta010_seg3",
+      "path": "ood_test3/hd32_static/recording_n8_eta010_seg3.h5",
+      "condition": "static",
+      "bytes": 542265296
+    },
+    {
+      "name": "ood_test3_static_n8_eta015",
+      "path": "ood_test3/hd32_static/recording_n8_eta015.h5",
+      "condition": "static",
+      "bytes": 542267816
+    },
+    {
+      "name": "ood_test3_static_n8_eta015_seg2",
+      "path": "ood_test3/hd32_static/recording_n8_eta015_seg2.h5",
+      "condition": "static",
+      "bytes": 542265104
+    },
+    {
+      "name": "ood_test3_static_n8_eta015_seg3",
+      "path": "ood_test3/hd32_static/recording_n8_eta015_seg3.h5",
+      "condition": "static",
+      "bytes": 542259752
+    },
+    {
+      "name": "ood_test3_static_n8_eta020",
+      "path": "ood_test3/hd32_static/recording_n8_eta020.h5",
+      "condition": "static",
+      "bytes": 542270712
+    },
+    {
+      "name": "ood_test3_static_n8_eta020_seg2",
+      "path": "ood_test3/hd32_static/recording_n8_eta020_seg2.h5",
+      "condition": "static",
+      "bytes": 542251816
+    },
+    {
+      "name": "ood_test3_static_n8_eta020_seg3",
+      "path": "ood_test3/hd32_static/recording_n8_eta020_seg3.h5",
+      "condition": "static",
+      "bytes": 542263552
+    },
+    {
+      "name": "ood_test3_static_n9_eta005",
+      "path": "ood_test3/hd32_static/recording_n9_eta005.h5",
+      "condition": "static",
+      "bytes": 555639240
+    },
+    {
+      "name": "ood_test3_static_n9_eta005_seg2",
+      "path": "ood_test3/hd32_static/recording_n9_eta005_seg2.h5",
+      "condition": "static",
+      "bytes": 555642768
+    },
+    {
+      "name": "ood_test3_static_n9_eta005_seg3",
+      "path": "ood_test3/hd32_static/recording_n9_eta005_seg3.h5",
+      "condition": "static",
+      "bytes": 555641632
+    },
+    {
+      "name": "ood_test3_static_n9_eta010",
+      "path": "ood_test3/hd32_static/recording_n9_eta010.h5",
+      "condition": "static",
+      "bytes": 555645504
+    },
+    {
+      "name": "ood_test3_static_n9_eta010_seg2",
+      "path": "ood_test3/hd32_static/recording_n9_eta010_seg2.h5",
+      "condition": "static",
+      "bytes": 555655104
+    },
+    {
+      "name": "ood_test3_static_n9_eta010_seg3",
+      "path": "ood_test3/hd32_static/recording_n9_eta010_seg3.h5",
+      "condition": "static",
+      "bytes": 555639904
+    },
+    {
+      "name": "ood_test3_static_n9_eta015",
+      "path": "ood_test3/hd32_static/recording_n9_eta015.h5",
+      "condition": "static",
+      "bytes": 555642368
+    },
+    {
+      "name": "ood_test3_static_n9_eta015_seg2",
+      "path": "ood_test3/hd32_static/recording_n9_eta015_seg2.h5",
+      "condition": "static",
+      "bytes": 555639776
+    },
+    {
+      "name": "ood_test3_static_n9_eta015_seg3",
+      "path": "ood_test3/hd32_static/recording_n9_eta015_seg3.h5",
+      "condition": "static",
+      "bytes": 555641488
+    },
+    {
+      "name": "ood_test3_static_n9_eta020",
+      "path": "ood_test3/hd32_static/recording_n9_eta020.h5",
+      "condition": "static",
+      "bytes": 555645608
+    },
+    {
+      "name": "ood_test3_static_n9_eta020_seg2",
+      "path": "ood_test3/hd32_static/recording_n9_eta020_seg2.h5",
+      "condition": "static",
+      "bytes": 555645544
+    },
+    {
+      "name": "ood_test3_static_n9_eta020_seg3",
+      "path": "ood_test3/hd32_static/recording_n9_eta020_seg3.h5",
+      "condition": "static",
+      "bytes": 555654064
+    }
+  ]
+}

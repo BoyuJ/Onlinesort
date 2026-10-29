@@ -32,6 +32,7 @@ from src.sort.online_assign import (
     build_unit_prototype_set,
     update_nearest_unit_prototype,
 )
+from src.reproducibility import load_recording_manifest, resolve_data_records, sha256, environment, write_json
 from src.utils import Event
 
 
@@ -1743,11 +1744,15 @@ def prepare_context(case: Case, cfg: Dict[str, Any], args: argparse.Namespace, l
 
     reader, input_path, is_h5, fs, n_samples, n_channels, channel_positions_raw = load_input_metadata(case, cfg, args)
     requested_device = args.device or str(offline_cfg.get("device", cfg.get("device", "cuda")))
-    device = ro.resolve_cuda_device(requested_device)
-    if device.type != "cuda":
-        raise RuntimeError(f"unexpected device {device}. online inference must use CUDA.")
-    logger.info("device=%s gpu=%s", device, torch.cuda.get_device_name(0))
-    torch.backends.cudnn.benchmark = True
+    if requested_device == "cpu":
+        device = torch.device("cpu")
+    elif requested_device == "auto" and not torch.cuda.is_available():
+        device = torch.device("cpu")
+    else:
+        device = ro.resolve_cuda_device(requested_device)
+    logger.info("device=%s", device)
+    if device.type == "cuda":
+        torch.backends.cudnn.benchmark = True
 
     chunk_sec = float(args.chunk_sec if args.chunk_sec is not None else offline_cfg.get("chunk_sec", cfg.get("chunk_sec", 0.1)))
     window_sec = float(cfg.get("window_sec", 1.5))
@@ -1787,6 +1792,8 @@ def prepare_context(case: Case, cfg: Dict[str, Any], args: argparse.Namespace, l
     )
     weights_raw = args.weights or offline_cfg.get("weights")
     weights_path = resolve_path(weights_raw) if weights_raw else None
+    if weights_path is None:
+        raise ValueError("Trained weights are required; pass --weights or import the paper checkpoint")
     weight_payload = None
     if weights_path is not None:
         if not weights_path.exists():
@@ -1867,7 +1874,7 @@ def prepare_context(case: Case, cfg: Dict[str, Any], args: argparse.Namespace, l
         state = weight_payload
         if isinstance(state, dict) and "model_state_dict" in state:
             state = state["model_state_dict"]
-        missing, unexpected = pipeline.model.load_state_dict(state, strict=False)
+        missing, unexpected = pipeline.model.load_state_dict(state, strict=True)
         pipeline.model.eval()
         logger.info(
             "loaded weights: %s (missing_keys=%d unexpected_keys=%d)",
@@ -2631,7 +2638,60 @@ def run_online_window(
     return best
 
 
+def infer_identity_arrays(arr, ctx, init_window_sec):
+    """Initialize from the unlabeled prefix, then assign in timestamp order; no GT reads."""
+    cutoff = int(round(init_window_sec * ctx.fs))
+    times = np.asarray(arr["event_time_sample"], dtype=np.int64)
+    init_idx = np.flatnonzero((times >= 0) & (times < cutoff))
+    init_arr = subset_arr_by_indices(arr, init_idx)
+    init_cfg = dict(ctx.offline_cluster_cfg, method="hdbscan", fs=float(ctx.fs))
+    clustered, init_diag = offline_cluster_outputs_nogt(
+        init_arr, cfg=init_cfg, requested_k=0, requested_k_source="no_gt",
+        assignment_gate_thresh=ctx.assignment_gate_thresh)
+    labels = np.asarray(clustered.get("unit_id_post", clustered["unit_id"]), dtype=np.int32)
+    units = build_units_from_labels(clustered, labels, global_indices=init_idx,
+        center_trim_quantile=float(ctx.offline_cluster_cfg.get("graph_center_trim_quantile", 0.90)))
+    result, assignment_diag = apply_online_assignment(arr, init_idx=init_idx,
+        init_labels=labels, units=units, ctx=ctx, init_window_sec=init_window_sec)
+    return result, {"initialization": init_diag, "assignment": assignment_diag}
+
+
+def run_inference_only_case(case, cfg, args):
+    windows = resolve_online_config(cfg, args.init_window_sec).init_window_sec
+    if not args.force:
+        for seconds in windows:
+            output = online_output_path(case.out_npz, seconds)
+            if output.exists() or output.with_suffix(".run.json").exists():
+                raise FileExistsError(f"Output already exists: {output}; choose a new output or use --force")
+    logger = build_logger(case.log_file)
+    ctx = prepare_context(case, cfg, args, logger)
+    arr, runtime = collect_embedding_outputs(ctx, logger)
+    for seconds in ctx.online_cfg.init_window_sec:
+        output = online_output_path(case.out_npz, seconds)
+        metadata_path = output.with_suffix(".run.json")
+        if (output.exists() or metadata_path.exists()) and not args.force:
+            raise FileExistsError(f"Output already exists: {output}; choose a new output or use --force")
+        result, diagnostics = infer_identity_arrays(arr, ctx, seconds)
+        if not ctx.save_embeddings:
+            result.pop("embedding", None)
+        output.parent.mkdir(parents=True, exist_ok=True)
+        np.savez_compressed(output, **result)
+        write_json(metadata_path, ro.to_jsonable({
+            "schema_version": 1, "recording": case.name, "fs": ctx.fs,
+            "arguments": vars(args),
+            "initialization_s": seconds, "config": cfg,
+            "resolved_online_config": vars(ctx.online_cfg),
+            "weights_sha256": sha256(ctx.weights_path),
+            "predictions_sha256": sha256(output),
+            "environment": environment(), "runtime": runtime,
+            "diagnostics": diagnostics, "gt_used_for_inference": False}))
+        logger.info("predictions_saved=%s; score using scripts/evaluate.py", output)
+    return 0
+
+
 def run_case(case: Case, cfg: Dict[str, Any], args: argparse.Namespace) -> int:
+    if cfg.get("online", {}).get("inference_only", False):
+        return run_inference_only_case(case, cfg, args)
     total_start = time.perf_counter()
     logger = build_logger(case.log_file)
     logger.info("launch online inference")
@@ -3137,6 +3197,9 @@ def run_reuse_embeddings(cfg: Dict[str, Any], args: argparse.Namespace) -> int:
 
 def build_arg_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Online closed-set assignment evaluation from offline warmup clusters.")
+    parser.add_argument("--manifest", help="recording manifest for batch inference")
+    parser.add_argument("--data-root", help="root containing manifest recording paths")
+    parser.add_argument("--dry-run", action="store_true", help="validate inputs and model without reading signal samples")
     parser.add_argument("--config", type=str, default=str(ROOT / "configs" / "infer.yaml"))
     parser.add_argument("--input-bin", type=str, default=None)
     parser.add_argument("--input-h5", type=str, default=None)
@@ -3184,7 +3247,21 @@ def reports_exist_for_case(case: Case, cfg: Dict[str, Any], init_override: str |
 def main() -> int:
     parser = build_arg_parser()
     args = parser.parse_args()
+    args.config = str(resolve_path(args.config, ROOT))
     cfg = ro.load_yaml(args.config)
+    torch.manual_seed(int(cfg.get("seed", 42)))
+    np.random.seed(int(cfg.get("seed", 42)))
+    manifest_spec = args.manifest or cfg.get("batch", {}).get("manifest")
+    if manifest_spec and args.jobs is not None:
+        manifest = load_recording_manifest(resolve_path(manifest_spec))
+        if args.jobs != "all":
+            requested = {name.strip() for name in args.jobs.split(",")}
+            known = {record["name"] for record in manifest["records"]}
+            if requested - known:
+                raise ValueError(f"Unknown recording(s): {sorted(requested - known)}")
+            manifest["records"] = [r for r in manifest["records"] if r["name"] in requested]
+        paths = resolve_data_records(manifest, args.data_root or cfg["batch"].get("data_root", "data/recordings"), ROOT)
+        cfg["batch"]["jobs"] = [dict(name=r["name"], input_h5=str(path)) for r, path in zip(manifest["records"], paths)]
     if args.reuse_embeddings:
         return run_reuse_embeddings(cfg, args)
     if args.jobs is not None:
@@ -3197,8 +3274,14 @@ def main() -> int:
     else:
         cases = [single_case_from_args(args, cfg)]
 
+    if args.dry_run:
+        for case in cases:
+            ctx = prepare_context(case, cfg, args, build_logger(case.log_file))
+            print(f"[preflight passed] {case.name}: {ctx.fs:g} Hz, {ctx.n_channels} channels, weights loaded")
+        return 0
+
     for idx, case in enumerate(cases, start=1):
-        if args.jobs is not None and not args.force and reports_exist_for_case(case, cfg, args.init_window_sec):
+        if args.jobs is not None and not args.force and not cfg.get("online", {}).get("inference_only", False) and reports_exist_for_case(case, cfg, args.init_window_sec):
             print(f"[skip] {case.name}: online reports already exist")
             continue
         print(f"[case {idx}/{len(cases)}] {case.name}")
