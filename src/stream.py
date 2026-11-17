@@ -1079,8 +1079,7 @@ class WindowScheduler:
             self.next_now += self.stride
 
     def keep_center_window(self, events: List[Event], center_start: int, center_stop: int) -> List[Event]:
-        # Keep only the non-overlapping stride sub-window to avoid emitting
-        # the same event repeatedly from overlapped center windows.
+        # Emit each event once across overlapping windows.
         keep_stop = min(center_stop, center_start + self.stride)
         return [e for e in events if center_start <= e.t0 < keep_stop]
 

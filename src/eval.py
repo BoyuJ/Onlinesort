@@ -183,8 +183,7 @@ class EventSet:
 
 @dataclass
 class BenchmarkConfig:
-    # Kilosort-style benchmark defaults. When tol_samples is set it wins over
-    # tol_ms; run_offline currently passes tol_samples=6 for bench.py parity.
+    # Explicit sample tolerance takes precedence over milliseconds.
     tol_samples: int | None = None
     tol_ms: float | None = 0.3
     min_sort_label: int = 0
@@ -1453,7 +1452,6 @@ def plot_embedding_2d(path: str | Path, z2d: np.ndarray, labels: np.ndarray | No
     plt.close()
 
 
-# --- Kilosort-style 1v1 benchmark implementation ---
 @njit
 def nmatch(ss0: np.ndarray, ss: np.ndarray, dt: int = 6):
     i = 0
@@ -1494,8 +1492,7 @@ def _classification_acc_true_positive(
     pred_to_gt_1to1: Dict[int, int],
     gt_units_keep: set[int] | None = None,
 ) -> Dict[str, float | int]:
-    # Measure TP classification on the same temporal matches using both the
-    # 1-to-1 remapped unit ids and the legacy raw-label equality fallback.
+    # Compare remapped and raw labels on the same temporal matches.
     empty_result: Dict[str, float | int] = {
         "classification_acc_true_positive": float("nan"),
         "raw_label_match_acc_true_positive": float("nan"),
@@ -1773,8 +1770,7 @@ def _rank_candidates(
             )
             return _limit(np.asarray(ranked, dtype=np.int64))
 
-    # When we do not have a reliable spatial proxy, evaluate all predicted
-    # units so the scoring itself stays as close as possible to bench.py.
+    # Evaluate all units when no spatial proxy is available.
     return pred_units
 
 

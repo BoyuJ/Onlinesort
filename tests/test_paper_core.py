@@ -157,7 +157,7 @@ def test_recording_weighted_aggregation_and_matched_comparisons():
     overall=next(r for r in aggregate_records(rows) if r['condition']=='overall')
     assert overall['f1']==.5 and paired_comparisons(rows)==[]
     rows.append(dict(rows[0],method='MountainSort4',precision=.1))
-    assert paired_comparisons(rows)==[] # missing recording, no paired claim
+    assert paired_comparisons(rows)==[]
 
 
 def test_manifests_and_missing_data(tmp_path):
@@ -231,8 +231,6 @@ def test_pure_assignment_accepts_without_updating_low_confidence_reference():
     ctx=SimpleNamespace(fs=1000,offline_cluster_cfg={},online_cfg=online_cfg,pipeline=SimpleNamespace(neighbors=None),assignment_gate_thresh=.5,candidate_filtering_disabled=False)
     unit=lambda k,z:run_online.InitializedUnit(k,np.array(z,np.float32),0,0.,5.,1.,0,10,8,np.arange(k*8,(k+1)*8))
     units={0:unit(0,[1.,0.]),1:unit(1,[.98,.2])}
-    # Two established nearby identities; the new spike wins by enough for a label,
-    # but not by enough for a reference update.
     emb=np.vstack([np.tile([1.,0.],(8,1)),np.tile([.98,.2],(8,1)),[1.,0.]]).astype(np.float32)
     arr={'event_time_sample':np.array(list(range(16))+[6000]),'center_channel':np.zeros(17,np.int32),'gate_prob':np.ones(17,np.float32),'encoded_mask':np.ones(17,np.int8),'confidence':np.ones(17,np.float32),'embedding':emb}
     labels=np.repeat([0,1],8).astype(np.int32)

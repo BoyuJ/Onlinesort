@@ -2,8 +2,7 @@ name: neuronexus32_mearec
 
 channels: 32
 
-# Keep the graph compact for the 32-channel probe and align with the
-# pretrain top_k_channels setting used in the 32-channel sweep.
+# Match training top_k_channels.
 k_neighbors: 9
 
 metadata:

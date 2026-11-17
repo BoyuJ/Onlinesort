@@ -90,14 +90,12 @@ def _list_h5_datasets(h5: h5py.File) -> List[str]:
 
 
 def _find_h5_dataset(h5: h5py.File, candidates: List[str], *, ndim: int | None = None) -> np.ndarray | None:
-    # Try exact path first.
     for c in candidates:
         key = c.lstrip("/")
         if key in h5 and isinstance(h5[key], h5py.Dataset):
             arr = h5[key][:]
             if ndim is None or arr.ndim == ndim:
                 return arr
-    # Fallback: suffix/path-name match.
     all_paths = _list_h5_datasets(h5)
     cand_norm = [c.lstrip("/").lower() for c in candidates]
     for p in all_paths:
@@ -127,7 +125,6 @@ def _to_tkc_and_ids(templates: np.ndarray, template_ids: np.ndarray) -> Tuple[np
     if arr.ndim < 3:
         raise ValueError(f"unsupported templates ndim={arr.ndim}, expected >=3")
 
-    # Move template axis to front.
     id_axis = _infer_template_axis(tuple(arr.shape), ids.size)
     arr = np.moveaxis(arr, id_axis, 0)  # [N, ...]
     if arr.shape[0] != ids.size:
@@ -138,14 +135,14 @@ def _to_tkc_and_ids(templates: np.ndarray, template_ids: np.ndarray) -> Tuple[np
     tail = list(arr.shape[1:])
     rel_axes = list(range(1, arr.ndim))
 
-    # Choose channel axis first: prefer exact 384 for NP384, else largest dimension.
+    # Prefer NP384's channel count when inferring axes.
     ch_candidates = [ax for ax in rel_axes if arr.shape[ax] == 384]
     if ch_candidates:
         ch_axis = ch_candidates[0]
     else:
         ch_axis = max(rel_axes, key=lambda ax: arr.shape[ax])
 
-    # Choose time axis from remaining: prefer exact 224, else largest remaining dimension.
+    # Prefer the standard 224-sample template length.
     rem_after_ch = [ax for ax in rel_axes if ax != ch_axis]
     t_candidates = [ax for ax in rem_after_ch if arr.shape[ax] == 224]
     if t_candidates:
@@ -326,10 +323,7 @@ def _pick_peak_channel_and_time(
     ch_med: np.ndarray,
     polarity: str,
 ) -> Tuple[int, int, float, float]:
-    """
-    Pick a peak channel first, then the peak time on that channel.
-    This avoids selecting a single global extremum across all channels/times.
-    """
+    """Pick a peak channel first, then the peak time on that channel."""
     seg = np.asarray(seg_align, dtype=np.float32)
     if seg.ndim != 2 or seg.shape[0] == 0 or seg.shape[1] == 0:
         raise ValueError("seg_align must be [T, C] with non-zero shape")

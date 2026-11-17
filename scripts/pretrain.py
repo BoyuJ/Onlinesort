@@ -1138,7 +1138,6 @@ def evaluate_encoder_separation(
     if val_x.shape[0] == 0 or train_x.shape[0] == 0:
         return metrics
 
-    # Build class prototypes from train split using a bounded support set per class.
     proto_labels: List[int] = []
     proto_parts: List[np.ndarray] = []
     for c in np.unique(y_train).tolist():
@@ -1169,7 +1168,6 @@ def evaluate_encoder_separation(
     p_labels = np.asarray(proto_labels, dtype=np.int64)
     p_mat = np.stack(proto_parts, axis=0).astype(np.float32, copy=False)
 
-    # Optional cap to keep validation fast on very large datasets.
     val_idx = np.arange(val_x.shape[0], dtype=np.int64)
     if val_idx.size > int(max_eval_samples) > 0:
         val_idx = rng.choice(val_idx, size=int(max_eval_samples), replace=False)
@@ -3700,9 +3698,7 @@ def evaluate_stage2_encoder_metrics(
         f"{metric_prefix}_classes_gt": 0.0,
     }
     val_mask = build_gt_spike_mask(val_y, val_spike_label, val_sample_source)
-    # Stage2 recording-holdout validation is intentionally internal to the held-out
-    # recording.  The legacy train/allowed-unit arguments are kept for call-site
-    # compatibility, but train prototypes are no longer used here.
+    # Validate within each held-out recording; ignore legacy train arguments.
     val_x = val_x[val_mask]
     val_geo = val_geo[val_mask]
     val_recording_id = np.asarray(val_recording_id, dtype=np.int16)[val_mask]

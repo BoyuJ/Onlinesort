@@ -30,11 +30,7 @@ def deep_update(base: Dict[str, Any], update: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def load_yaml(path: str | Path) -> Dict[str, Any]:
-    """Load a YAML config, optionally deep-merging one or more base configs.
-
-    Config files may specify `extends` or `base_config` as a string or list of
-    strings. Relative base paths are resolved from the child config directory.
-    """
+    """Load YAML and merge inherited configs relative to the child config."""
 
     path = Path(path)
     with open(path, "r", encoding="utf-8") as f:
@@ -171,17 +167,9 @@ def build_staggered_grid_positions(electrode_cfg: Dict[str, Any]) -> np.ndarray:
         raise ValueError("invalid rows/cols in electrode config")
     n_channels = int(electrode_cfg.get("channels", rows * cols))
     if rows * cols != n_channels:
-        # Neuropixels 384 often uses a checkerboard pattern where n_channels ~ rows*cols/2
-        # However, typically rows=4, cols=192 means a dense 4x192 region where only selected sites are active.
-        # But if the user configuration explicitly asks for fewer channels, we should probably 
-        # auto-detect a checkerboard layout if ratio is exactly 0.5.
         if n_channels * 2 == rows * cols:
-            # Assume checkerboard pattern for Neuropixels-like logical layout
             pass
         else:
-            # If not exactly half, warn but proceed if we can fit them? No, better to fail or fix logic.
-            # For now, let's allow it but we need a strategy to picking which sites.
-            # To fix the immediate crash for NP 384 config (384 vs 768), we implement checkerboard logic below.
             pass
 
     pitch = pos_cfg.get("pitch_um", {})
@@ -191,7 +179,6 @@ def build_staggered_grid_positions(electrode_cfg: Dict[str, Any]) -> np.ndarray:
     plane = str(pos_cfg.get("plane", "yz")).lower()
 
     if n_channels == rows * cols:
-        # Dense grid
         out = np.zeros((n_channels, 3), dtype=np.float32)
         idx = 0
         for r in range(rows):
@@ -207,33 +194,20 @@ def build_staggered_grid_positions(electrode_cfg: Dict[str, Any]) -> np.ndarray:
                 idx += 1
         return out
     
-    # Sparse / Checkerboard logic for Neuropixels 384 (channels=384, rows=4, cols=192)
-    # The pattern is typically: (row + col) % 2 == 0 (or similar).
-    # NP 1.0 has a checkerboard pattern effectively.
+    # Synthetic checkerboard geometry for BIN input; H5 uses recorded positions.
     out = np.zeros((n_channels, 3), dtype=np.float32)
     idx = 0
     for c in range(cols):
         for r in range(rows):
-            # Checkerboard condition: only keep sites where (r + c) or similar logic meets condition
-            # For standard NP 384 long column mode:
-            # It selects a specific pattern. Without exact knowledge of which 384, 
-            # we assume a checkerboard (r+c)%2 == 0 matches the count 384 for 4x192.
-            # Note: This is a synthetic reconstruction for BIN files. H5 files use read_channel_positions.
             if (r + c) % 2 == 0:
                 if idx >= n_channels:
                     break
-                y = r * vertical # Vertical usually means Y for NP
-                z = c * horizontal # Horizontal usually means Z (depth) for NP? 
-                # Wait, pitch definition in config: vertical=16 (y), horizontal=20 (z?).
-                # In H5 we saw Y=[-24, -8, 8, 24] (spacing 16), Z=[-1910...0] (spacing 20).
-                # So rows corresponds to Y, cols corresponds to Z.
-                # r=0 -> y=-24? Offset is arbitrary, we center it or start at 0.
-                # Let's align with config:
+                y = r * vertical
+                z = c * horizontal
                 
                 pos_y = r * vertical
                 pos_z = c * horizontal
                 
-                # Apply stagger if needed
                 if stagger != 0 and (c % 2 == 1):
                     pos_y += stagger
 
@@ -242,7 +216,6 @@ def build_staggered_grid_positions(electrode_cfg: Dict[str, Any]) -> np.ndarray:
                 elif plane == "xy":
                     out[idx] = np.array([pos_z, pos_y, 0.0], dtype=np.float32)
                 else:
-                    # default x, y
                     out[idx] = np.array([0.0, pos_y, pos_z], dtype=np.float32)
                 idx += 1
                 
@@ -295,14 +268,11 @@ def build_local_grid_neighbors(rows: int, cols: int, k_neighbors: int) -> np.nda
 
 
 def build_neighbors_from_electrode_config(electrode_cfg: Dict[str, Any]) -> tuple[np.ndarray, np.ndarray]:
-    # Respect user requested k_neighbors
     k_neighbors = int(electrode_cfg.get("k_neighbors", 16))
 
     positions = build_channel_positions_from_electrode_config(electrode_cfg)
 
-    # ALWAYS use KNN based neighbors to ensure consistency between pretrain (which uses H5 positions + KNN) 
-    # and offline inference. This handles edge cases robustly (always finding k nearest) 
-    # avoiding "padding with center" artifacts of grid-based logic.
+    # Match training's KNN geometry without padding with the center channel.
     neighbors = build_knn_neighbors(positions, k=k_neighbors)
     return positions, neighbors
 
@@ -514,13 +484,11 @@ class PipelineStats:
     n_init_flushed: int = 0
     n_stalls: int = 0
     last_latency_ms: float = 0.0
-    # Last chunk stage timings (milliseconds)
     last_preprocess_ms: float = 0.0
     last_detect_ms: float = 0.0
     last_patch_ms: float = 0.0
     last_model_ms: float = 0.0
     last_cluster_ms: float = 0.0
-    # Last chunk counters
     last_segments: int = 0
     last_chunk_events: int = 0
     last_chunk_patches: int = 0
@@ -538,7 +506,6 @@ class PipelineStats:
     total_detect_duplicate_drops: int = 0
     total_detect_global_simul_drops: int = 0
     total_detect_local_simul_drops: int = 0
-    # Accumulated stage timings (milliseconds)
     total_preprocess_ms: float = 0.0
     total_detect_ms: float = 0.0
     total_patch_ms: float = 0.0
